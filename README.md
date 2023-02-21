@@ -19,7 +19,7 @@ This present example experiment consists of the following components:
 - `static/jsPsych`: Directory containing jsPsych package.
 - `Makefile`: Recipe for starting and stopping the experiment.
 
-## Procedure for creating a bwCloud virtual server
+## Create a bwCloud virtual server
 
 1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/) and log in with your Uni Stuttgart username/password.
 2. Select “Instances” in the menu on the left.
@@ -46,12 +46,11 @@ This present example experiment consists of the following components:
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
 
-## Procedure for installing the experiment on the virtual server
+## Install the experiment on the virtual server
 
 1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
 2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone https://github.com/tmalsburg/web_stroop_task.git experiment`
-3. Enter the directory containing the experiment: `cd experiment`
-4. Enter `ls` to see all files.  You should see:
+3. Enter `ls experiment` to see all files in the new directory `experiment`.  You should see:
    - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
    - `README.md`: the file you’re currently reading
    - `experiment.html`: the file containing the experiment
@@ -59,7 +58,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
    - `images`: the directory containing images used in the experiment)
    - `jspsych`: the directory containing the jspsych package)
 
-## Procedure for running the experiment
+## Run the experiment
 
 1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
 2. Enter the directory containing the experiment: `cd experiment`
@@ -67,13 +66,19 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 You can now access the experiment in the browser at an URL similar to `http://193.196.55.166/` but using the IP address of the virtual server instance.
 
-For testing, do the experiment until the end.  If everything works, you will find a new file in the `data` subdirectory named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.
+For testing, do the experiment until the end.  If everything works, you will find a new file in the subdirectory `experiment/data` named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.
 
-## Procedure for stopping the experiment
+## Stop the experiment
 
 1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
 2. Enter the directory containing the experiment: `cd experiment`
 3. To start the server enter: `make stop`
+
+## Archive the experiment when the data collection has finished and the data has been retrieved from the virtual server
+
+1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/) and log in with your Uni Stuttgart username/password.
+2. Select “Instances” in the menu on the left.
+3. From the “Actions” menu in the line of your virtual server instance, select “Shelve Instance”.  A snapshot of the instance will be saved and the computing resources will be released so that others can use them.  The instance will now be listed with status “Shelved Offloaded”.  After shelving the instance, you can no longer access it, so make sure that you retrieve the data before shelving.  If necessary, it is possible to reactivate (“unshelve”) the instance later.
 
 ## Technical comments for advanced users
 
