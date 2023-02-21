@@ -42,8 +42,7 @@ This present example experiment consists of the following components:
   - Open a terminal and enter this command `ssh ubuntu@193.196.54.221` but with the actual IP address of your instance.  Note that `ubuntu` is your username on the virtual server.
   - Ssh will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
   - If all goes well, ssh will connect to the virtual server and show its command prompt, e.g: `ubuntu@test_instance:~$`
-6. Update the operating system of the virtual machine: `sudo apt update && sudo apt upgrade`  (If the update process asks you something, just confirm the default settings.)
-7. Install some packages that will be needed to run the experiment: `sudo apt install make python3-bottle python3-gevent`
+6. Install some packages that will be needed to run the experiment: `sudo apt update && sudo apt install make python3-bottle python3-gevent`
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
 
@@ -53,12 +52,12 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone https://github.com/tmalsburg/web_stroop_task.git experiment`
 3. Enter the directory containing the experiment: `cd experiment`
 4. Enter `ls` to see all files.  You should see:
-  - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
-  - `README.md`: the file you’re currently reading
-  - `experiment.html`: the file containing the experiment
-  - `experiment.py`: the script for serving the experiment and storing results on disk
-  - `images`: the directory containing images used in the experiment)
-  - `jspsych`: the directory containing the jspsych package)
+   - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
+   - `README.md`: the file you’re currently reading
+   - `experiment.html`: the file containing the experiment
+   - `experiment.py`: the script for serving the experiment and storing results on disk
+   - `images`: the directory containing images used in the experiment)
+   - `jspsych`: the directory containing the jspsych package)
 
 ## Procedure for running the experiment
 
@@ -66,41 +65,24 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 2. Enter the directory containing the experiment: `cd experiment`
 3. To start the server enter: `make start`
 
+You can now access the experiment in the browser at an URL similar to `http://193.196.55.166/` but using the IP address of the virtual server instance.
+
+For testing, do the experiment until the end.  If everything works, you will find a new file in the `data` subdirectory named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.
+
+For testing, do the experiment, until the end.  If everything file you will find a new data in the ‘data‘ subdirectory named something like `.
+
 ## Procedure for stopping the experiment
 
 1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
 2. Enter the directory containing the experiment: `cd experiment`
 3. To start the server enter: `make stop`
 
-## Prerequisites
+## Technical comments for advanced users
 
-On Ubuntu Linux it’s enough to install these packages (python 3 should already be installed on any Ubuntu system)
-
-```
-sudo apt-get install python3-bottle
-sudo apt-get install python3-gevent
-```
-
-## Running the experiment
-
-This experiment can be run from the experiment’s root directory with the command:
-
-``` sh :eval no
-make start
-```
-
-To stop the server use:
-``` sh :eval no
-make stop
-```
-
-The PID will be stored in `nohup.pid` and the log messages in `nohup.out`.
+The PID of the server process will be stored in `nohup.pid` and the log messages in `nohup.out`.
 
 For testing, use (which blocks the shell):
 ``` sh :eval no
 make test
 ```
 
-The experiment can be accessed at the IP address of the server (port 80).
-
-Collected data will be stored in the `data` sub directory.
