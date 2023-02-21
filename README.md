@@ -25,23 +25,23 @@ This present example experiment consists of the following components:
 2. Select “Instances” in the menu on the left.
 3. Click on “Launch Instance” (top right).
 4. Configure new instance (= a virtual server):
-  - “Details” tab:
-    - Instance Name (e.g., `test_instance`)
-    - Description
-  - “Source” tab: Select “Ubuntu 22.04” (or whatever the latest version is).  To select it, click on the button with the arrow pointing to the top.
-  - “Flavor” tab: Here you can select the size of the server (how much memory and so on).  For most experiments `m1.nano` will be enough.
-  - “Key Pair” tab: Here you have to upload your “SSH” key.  That’s a file containing your SSH public key.
-     - Click on “Import Key Pair”.
-     - Enter a name for the key under “Key Pair Name”.
-     - Select “SSH Key” under “Key Type”.
-     - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS is’t probably in the same location.
-     - Klick “Import Key Pair” at the bottom left.
-  - Click “Launch Instance”.  The new instance will then appear in the list of instances.
+   - “Details” tab:
+     - Instance Name (e.g., `test_instance`)
+     - Description
+   - “Source” tab: Select “Ubuntu 22.04” (or whatever the latest version is).  To select it, click on the button with the arrow pointing to the top.
+   - “Flavor” tab: Here you can select the size of the server (how much memory and so on).  For most experiments `m1.nano` will be enough.
+   - “Key Pair” tab: Here you have to upload your “SSH” key.  That’s a file containing your SSH public key.
+      - Click on “Import Key Pair”.
+      - Enter a name for the key under “Key Pair Name”.
+      - Select “SSH Key” under “Key Type”.
+      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS is’t probably in the same location.
+      - Klick “Import Key Pair” at the bottom left.
+   - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 5. To test the new instance, try logging into it using ssh in a terminal:
-  - Copy the instance’s IP address from the list of instances.  The IP address will look like this: `193.196.54.221`
-  - Open a terminal and enter this command `ssh ubuntu@193.196.54.221` but with the actual IP address of your instance.  Note that `ubuntu` is your username on the virtual server.
-  - Ssh will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
-  - If all goes well, ssh will connect to the virtual server and show its command prompt, e.g: `ubuntu@test_instance:~$`
+   - Copy the instance’s IP address from the list of instances.  The IP address will look like this: `193.196.54.221`
+   - Open a terminal and enter this command `ssh ubuntu@193.196.54.221` but with the actual IP address of your instance.  Note that `ubuntu` is your username on the virtual server.
+   - Ssh will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
+   - If all goes well, ssh will connect to the virtual server and show its command prompt, e.g: `ubuntu@test_instance:~$`
 6. Install some packages that will be needed to run the experiment: `sudo apt update && sudo apt install make python3-bottle python3-gevent`
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
@@ -68,8 +68,6 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 You can now access the experiment in the browser at an URL similar to `http://193.196.55.166/` but using the IP address of the virtual server instance.
 
 For testing, do the experiment until the end.  If everything works, you will find a new file in the `data` subdirectory named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.
-
-For testing, do the experiment, until the end.  If everything file you will find a new data in the ‘data‘ subdirectory named something like `.
 
 ## Procedure for stopping the experiment
 
