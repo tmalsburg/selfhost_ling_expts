@@ -34,8 +34,8 @@ This present example experiment consists of the following components:
       - Click on “Import Key Pair”.
       - Enter a name for the key under “Key Pair Name”.
       - Select “SSH Key” under “Key Type”.
-      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS is’t probably in the same location.
-      - Klick “Import Key Pair” at the bottom left.
+      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
+      - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 5. To test the new instance, try logging into it using ssh in a terminal:
    - Copy the instance’s IP address from the list of instances.  The IP address will look like this: `193.196.54.221`
@@ -55,8 +55,8 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
    - `README.md`: the file you’re currently reading
    - `experiment.html`: the file containing the experiment
    - `experiment.py`: the script for serving the experiment and storing results on disk
-   - `images`: the directory containing images used in the experiment)
-   - `jspsych`: the directory containing the jspsych package)
+   - `images`: the directory containing images used in the experiment
+   - `jspsych`: the directory containing the jsPsych package
 
 ## Run the experiment
 
