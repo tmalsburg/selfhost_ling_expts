@@ -15,9 +15,9 @@ from bottle import route, request, run, static_file, HTTPError
 def experiment():
     return static_file("experiment.html", root='')
 
-@route('/img/<filename:re:.+\.png>')
+@route('/images/<filename:re:.+\.png>')
 def send_image(filename):
-    return static_file(filename, root='img/', mimetype='image/png')
+    return static_file(filename, root='images/', mimetype='image/png')
 
 @route('/jspsych/<filename:re:.+\.(js|css)>')
 def jspsych(filename):
