@@ -42,13 +42,35 @@ This present example experiment consists of the following components:
   - Open a terminal and enter this command `ssh ubuntu@193.196.54.221` but with the actual IP address of your instance.  Note that `ubuntu` is your username on the virtual server.
   - Ssh will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
   - If all goes well, ssh will connect to the virtual server and show its command prompt, e.g: `ubuntu@test_instance:~$`
-Success.  You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
+6. Update the operating system of the virtual machine: `sudo apt update && sudo apt upgrade`  (If the update process asks you something, just confirm the default settings.)
+7. Install some packages that will be needed to run the experiment: `sudo apt install make python3-bottle python3-gevent`
 
-## Procedure for installing the test experiment on the virtual server
+Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
+
+## Procedure for installing the experiment on the virtual server
 
 1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
-2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone git@github.tik.uni-stuttgart.de:ac138447/web_stroop_task.git`
+2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone https://github.com/tmalsburg/web_stroop_task.git experiment`
+3. Enter the directory containing the experiment: `cd experiment`
+4. Enter `ls` to see all files.  You should see:
+  - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
+  - `README.md`: the file you’re currently reading
+  - `experiment.html`: the file containing the experiment
+  - `experiment.py`: the script for serving the experiment and storing results on disk
+  - `images`: the directory containing images used in the experiment)
+  - `jspsych`: the directory containing the jspsych package)
 
+## Procedure for running the experiment
+
+1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
+2. Enter the directory containing the experiment: `cd experiment`
+3. To start the server enter: `make start`
+
+## Procedure for stopping the experiment
+
+1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
+2. Enter the directory containing the experiment: `cd experiment`
+3. To start the server enter: `make stop`
 
 ## Prerequisites
 
