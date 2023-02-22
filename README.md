@@ -17,6 +17,8 @@ The example experiment implements a minimal [Stroop task](https://en.wikipedia.o
 - `jsPsych`: Directory containing jsPsych package.
 - `Makefile`: Recipe for starting and stopping the experiment.
 
+Below are instructions showing how to install and run the experiment.
+
 ## Create a bwCloud virtual server
 The cloud hosting service bwCloud is available only to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have acces, you’ll need another cloud hosting service that offers virtual servers running Ubuntu Linux.
 
