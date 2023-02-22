@@ -9,7 +9,7 @@ The experiment is implemented in **jsPsych** which is one of the standard packag
 
 Bottle and gevent are Python packages that are used to serve the experiment to the web and to store the results on the server.  **Bottle** is the Python web framework for serving the experiment and storing the data.  Bottle was chosen because it is simple and easy to use.  **gevent** is our web server which handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed; it supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
 
-This present example experiment consists of the following components:
+The example experiment implements a minimal [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect) and consists of the following components:
 
 - `experiment.py`: The script that serves the experiment and stores the results (in `data`).
 - `experiment.html`: The experiment (implemented with HTML and jsPsych).
