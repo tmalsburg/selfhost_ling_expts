@@ -17,7 +17,7 @@ The example experiment implements a minimal [Stroop task](https://en.wikipedia.o
 - `jsPsych`: Directory containing jsPsych package.
 - `Makefile`: Recipe for starting and stopping the experiment.
 
-Below are instructions showing how to install and run the experiment.
+Below are instructions showing how to install and run the experiment.  You need a virtual server with Ubuntu Linux.  Follow the instruction for either bwCloud (run by the state, free, but not always functional) or DigitalOcean.
 
 ## Create a bwCloud virtual server
 The cloud hosting service bwCloud is available only to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have acces, you’ll need another cloud hosting service that offers virtual servers running Ubuntu Linux.
@@ -38,6 +38,21 @@ The cloud hosting service bwCloud is available only to members of universities i
       - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
       - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
+
+## Create a “Droplet” on DigitalOcean (commercial service)
+1. Visit https://www.digitalocean.com and create an account.
+2. Log in and visit the management interface at: https://cloud.digitalocean.com/projects
+3. In the menu pane on the left select “Droplets”.
+4. Click blue button “Create Droplet”.
+5. Configure Droplet:
+   - Choose geographic region where the Droplet should be hosted (“Frankfurt”).
+   - As operating system choose Ubuntu (latest version).
+   - Select “Size” of Droplet.  “Shared CPU / Basic” plan is usually enough.
+   - Under CPU options, choose “Regular”.  Scroll the horizontal list of available plans all the way to the left and choose the cheapest plan (USD 4, at the time of writing).
+   - In the section “Choose Authentication Method”, you can choose “SSH Key” or “Password”.  The former is more secure and more convenient once it’s set up.  The latter is potentially insecure (depending on the password) but slightly easier to set up.  The “SSH Key” method is strongly recommended.  On Linux, the file containing your key can be found at: `~/ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.  No idea where it would be on Windows, but DigitalOcean show some instructions for all operating systems when you click on the button “New SSH Key”.
+   - The options that they offer in the next section are typically not needed.
+   - In the section “Finalize Details” you can choose how many Droplets you want to create (usually 1) and given each a name.
+   - Finally click the button “Create Droplet” at the bottom right.
 
 ## Install required software on the virtual server
 
