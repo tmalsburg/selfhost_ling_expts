@@ -1,26 +1,30 @@
 
 ## What is this?
 
-A sample experiment illustrating a self-hosted web experiment using [jsPsych](https://www.jspsych.org/), [bottle](https://bottlepy.org/docs/dev/), [gevent](https://pypi.org/project/gevent/).
+A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org/), [bottle](https://bottlepy.org/docs/dev/), [gevent](https://pypi.org/project/gevent/).
 
 ## Architecture
 
-The experiment is implemented in **jsPsych** which is one of the standard packages for implementing web experiments.  (An alternative package that also looks promising is [lab.js](https://lab.js.org/)).
+The experiment is implemented using **jsPsych** which is one of the standard packages for implementing web experiments.  An alternative package that also looks promising is [lab.js](https://lab.js.org/).
 
-Bottle and gevent are Python packages that are used to serve the experiment to the web and to store the results on the server.  **Bottle** is the Python web framework for serving the experiment and storing the data.  Bottle was chosen because it is simple and easy to use.  **gevent** is our web server which handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed; it supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
+Bottle and gevent are Python packages that are used to serve the experiment to the web and to store the results on the server.
+
+- **Bottle** is the Python web framework for serving the experiment and storing the data.  Bottle was chosen because it is simple and easy to use.
+- **gevent** is our web server and handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed; it supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
 
 The example experiment implements a minimal [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect) and consists of the following components:
 
-- `experiment.py`: The script that serves the experiment and stores the results (in `data`).
-- `experiment.html`: The experiment (implemented with HTML and jsPsych).
-- `img`: Directory containing the images used in the experiment.
-- `jsPsych`: Directory containing jsPsych package.
+- `experiment.py`: The script that serves the experiment and stores the results in the subdirectory `data`.
+- `experiment.html`: The experiment, implemented with HTML and jsPsych.
+- `img`: Directory containing the images shown in the experiment.
+- `jsPsych`: Directory containing the jsPsych package.
 - `Makefile`: Recipe for starting and stopping the experiment.
 
-Below are instructions showing how to install and run the experiment.  You need a virtual server with Ubuntu Linux.  Follow the instruction for either bwCloud (run by the state, free, but not always functional) or DigitalOcean.
+Below are instructions showing how to install and run the experiment.  You’ll need a virtual server running Ubuntu Linux.  Follow the instruction for either [bwCloud](https://www.bw-cloud.org), a cloud service offered by the state of Baden-Württemberg in Germany (free, but not always functional), or [DigitalOcean](https://www.digitalocean.com), a US-based commercial cloud service provider.
 
 ## Create a bwCloud virtual server
-The cloud hosting service bwCloud is available only to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have acces, you’ll need another cloud hosting service that offers virtual servers running Ubuntu Linux.
+
+The cloud hosting service bwCloud is available to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have access, try DigitalOcean (next section).  You can also use any other server running Ubuntu or any of its derivatives.
 
 1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/) and log in with your university’s username/password.
 2. Select “Instances” in the menu on the left.
@@ -40,6 +44,7 @@ The cloud hosting service bwCloud is available only to members of universities i
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 
 ## Create a “Droplet” on DigitalOcean (commercial service)
+
 1. Visit https://www.digitalocean.com and create an account.
 2. Log in and visit the management interface at: https://cloud.digitalocean.com/projects
 3. In the menu pane on the left select “Droplets”.
@@ -89,7 +94,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 1. Enter the directory containing the experiment: `cd experiment`
 2. To stop the server enter: `make stop`
 
-## Archive the experiment when the data collection has finished and the data has been retrieved from the virtual server
+## (bwCloud) Archive the experiment when the data collection has finished and the data has been retrieved from the virtual server
 
 1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/).
 2. Select “Instances” in the menu on the left.
