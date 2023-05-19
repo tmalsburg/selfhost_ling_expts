@@ -100,6 +100,13 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 2. Select “Instances” in the menu on the left.
 3. From the “Actions” menu in the line of your virtual server instance, select “Shelve Instance”.  A snapshot of the instance will be saved and the computing resources will be released so that others can use them.  The instance will now be listed with status “Shelved Offloaded”.  After shelving the instance, you can no longer access it, so make sure that you retrieve the data before shelving.  If necessary, it is possible to reactivate (“unshelve”) the instance later.
 
+## Compiling all individual participant’s results into one file
+
+1. Enter the directory `data`.
+2. Execute this command: `Rscript compile_results.R`
+
+This will create a new file `combined.tsv` with an additional column called `participant_id` that contains the file name of the participant’s results file.
+
 ## Technical comments for advanced users
 
 The PID of the server process will be stored in `nohup.pid` and the log messages in `nohup.out`.
