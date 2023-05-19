@@ -14,7 +14,7 @@ Bottle and gevent are Python packages that are used to serve the experiment to t
 
 The example experiment implements a minimal [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect) and consists of the following components:
 
-- `experiment.py`: The script that serves the experiment and stores the results in the subdirectory `data`.
+- `server.py`: The script that serves the experiment and stores the results in the subdirectory `data`.
 - `experiment.html`: The experiment, implemented with HTML and jsPsych.
 - `img`: Directory containing the images shown in the experiment.
 - `jsPsych`: Directory containing the jsPsych package.
@@ -78,7 +78,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
    - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
    - `README.md`: the file you’re currently reading
    - `experiment.html`: the file containing the experiment
-   - `experiment.py`: the script for serving the experiment and storing results on disk
+   - `server.py`: the script for serving the experiment and storing results on disk
    - `images`: the directory containing images used in the experiment
    - `jspsych`: the directory containing the jsPsych package
 
