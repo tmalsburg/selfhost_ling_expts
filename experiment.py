@@ -41,7 +41,7 @@ def store():
     else:
         os.mkdir("data")
     filename = str(uuid.uuid4()) + ".csv"
-    with open("data/" + filename, "x") as f:
+    with open("data/" + "results_" + filename, "x") as f:
         f.write(filedata)
 
 run(host='0.0.0.0', port=80, server='gevent')
