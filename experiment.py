@@ -35,6 +35,11 @@ def store():
     # If we can read more, they payload was too large:
     if len(b.read(1)) != 0:
         raise HTTPError(413, 'Too much data.  Please contact the person conducting the experiment.')
+    if os.path.exists("data"):
+        if not os.path.isdir("data"):
+            raise RuntimeError("A file named 'data' exists where a directory with that name is expected.")
+    else:
+        os.mkdir("data")
     filename = str(uuid.uuid4()) + ".csv"
     with open("data/" + filename, "x") as f:
         f.write(filedata)
