@@ -39,7 +39,7 @@ The cloud hosting service bwCloud is available to members of universities in the
       - Click on “Import Key Pair”.
       - Enter a name for the key under “Key Pair Name”.
       - Select “SSH Key” under “Key Type”.
-      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
+      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
       - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 
@@ -54,7 +54,7 @@ The cloud hosting service bwCloud is available to members of universities in the
    - As operating system choose Ubuntu (latest version).
    - Select “Size” of Droplet.  “Shared CPU / Basic” plan is usually enough.
    - Under CPU options, choose “Regular”.  Scroll the horizontal list of available plans all the way to the left and choose the cheapest plan (USD 4, at the time of writing).
-   - In the section “Choose Authentication Method”, you can choose “SSH Key” or “Password”.  The former is more secure and more convenient once it’s set up.  The latter is potentially insecure (depending on the password) but slightly easier to set up.  The “SSH Key” method is strongly recommended.  On Linux, the file containing your key can be found at: `~/ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.  No idea where it would be on Windows, but DigitalOcean show some instructions for all operating systems when you click on the button “New SSH Key”.
+   - In the section “Choose Authentication Method”, you can choose “SSH Key” or “Password”.  The former is more secure and more convenient once it’s set up.  The latter is potentially insecure (depending on the password) but slightly easier to set up.  The “SSH Key” method is strongly recommended.  On Linux, the file containing your key can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.  No idea where it would be on Windows, but DigitalOcean show some instructions for all operating systems when you click on the button “New SSH Key”.
    - The options that they offer in the next section are typically not needed.
    - In the section “Finalize Details” you can choose how many Droplets you want to create (usually 1) and given each a name.
    - Finally click the button “Create Droplet” at the bottom right.
@@ -63,17 +63,17 @@ The cloud hosting service bwCloud is available to members of universities in the
 
 1. Log into the virtual server using SSH in a terminal:
    - Copy the instance’s IP address from the list of instances (e.g., `193.196.54.221`).
-   - Open a terminal and enter this command `ssh ubuntu@193.196.54.221` but with the actual IP address of your instance.  (`ubuntu` is your username on the virtual server.)
+   - Open a terminal and enter this command `ssh root@193.196.54.221` but with the actual IP address of your instance.  In this command, `root` is the default username used in DigitalOcean servers.  When using a bwCloud server, replace `root` with `ubuntu`.
    - SSH will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
-   - If all goes well, SSH will connect to the virtual server and show its command prompt, e.g: `ubuntu@test_instance:~$`
+   - If all goes well, SSH will connect to the virtual server and show its command prompt, for instance, `root@test_instance:~$` on bwCloud or `root@test_instance:~$` on DigitalOcean.
 2. Install packages needed to run the experiment: `sudo apt update && sudo apt install make python3-bottle python3-gevent`
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
 
 ## Install the experiment on the virtual server
 
-1. Connect to the virtual server: `ssh ubuntu@193.196.54.221`
-2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone https://github.com/tmalsburg/web_stroop_task.git experiment`
+1. Connect to the virtual server: `ssh root@193.196.54.221`
+2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone git@github.com:tmalsburg/web_stroop_task.git experiment`
 3. Enter `ls experiment` to see all files in the new directory `experiment`.  You should see:
    - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
    - `README.md`: the file you’re currently reading
