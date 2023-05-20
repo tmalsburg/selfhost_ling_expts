@@ -129,4 +129,4 @@ make test
 
 ## Acknowledgements
 
-Judith Tonhauser provided comments and suggestions that helped improve the materials.
+Judith Tonhauser provided useful comments and suggestions.
