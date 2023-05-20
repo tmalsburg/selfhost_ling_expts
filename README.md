@@ -105,7 +105,12 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 1. Enter the directory `data`.
 2. Execute this command: `Rscript combine_results.R`
 
-This will create a new file `combined.tsv` with an additional column called `participant_id`.  This column contains the file name of each participant’s individual results file.
+This will create a new file `combined.tsv` with two additional columns:
+
+- `participant_id`: This column contains the file name of each participant’s individual results file.
+- `ctime`: contains the individual results file’s creation time.
+
+The individual results will appear in chronological order in `combined.tsv`.
 
 ## Technical comments for advanced users
 
