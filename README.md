@@ -63,6 +63,12 @@ The cloud hosting service bwCloud is available to members of universities in the
       - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 
+### Archiving the bwCloud virtual server after study completion
+
+1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/).
+2. Select “Instances” in the menu on the left.
+3. From the “Actions” menu in the line of your virtual server instance, select “Shelve Instance”.  A snapshot of the instance will be saved and the computing resources will be released so that others can use them.  The instance will now be listed with status “Shelved Offloaded”.  After shelving the instance, you can no longer access it, so make sure that you retrieve the data before shelving.  If necessary, it is possible to reactivate (“unshelve”) the instance later.
+
 ## Install required software on the virtual server
 
 1. Log into the virtual server using SSH in a terminal:
@@ -97,12 +103,6 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 1. Enter the directory containing the experiment: `cd experiment`
 2. To stop the server enter: `make stop`
-
-## (bwCloud) Archive the experiment when the data collection has finished and the data has been retrieved from the virtual server
-
-1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/).
-2. Select “Instances” in the menu on the left.
-3. From the “Actions” menu in the line of your virtual server instance, select “Shelve Instance”.  A snapshot of the instance will be saved and the computing resources will be released so that others can use them.  The instance will now be listed with status “Shelved Offloaded”.  After shelving the instance, you can no longer access it, so make sure that you retrieve the data before shelving.  If necessary, it is possible to reactivate (“unshelve”) the instance later.
 
 ## Compiling all individual result files into one file
 
