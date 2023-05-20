@@ -116,6 +116,8 @@ This will create a new file `combined.tsv` with two additional columns:
 
 The individual results will appear in chronological order in `combined.tsv`.
 
+**Note:** The script uses the time when the files were created on disk.  For these times to be accurate, the script must run on the machine where the experiment is running.  If you transfer the files to another computer with (e.g. using `scp`), the times will no longer reflect the original creation time, but the time at which the files were copied.  So the suggestion workflow is: First combine all results into one file.  Then transfer that file to wherever you’d like to further process it.
+
 ## Technical comments for advanced users
 
 The PID of the server process will be stored in `nohup.pid` and the log messages in `nohup.out`.
