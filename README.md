@@ -1,13 +1,13 @@
 
 ## What is this?
 
-A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org/), [bottle](https://bottlepy.org/docs/dev/), [gevent](https://pypi.org/project/gevent/).
+A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org/), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).
 
 ## Architecture
 
-The experiment is implemented using **jsPsych** which is one of the standard packages for implementing web experiments.  An alternative package that also looks promising is [lab.js](https://lab.js.org/).
+The experiment is implemented using **jsPsych** which is one of the standard packages for implementing web experiments.  (An alternative package that also looks promising is [lab.js](https://lab.js.org/).)
 
-Bottle and gevent are Python packages that are used to serve the experiment to the web and to store the results on the server.
+Bottle and gevent are Python packages that we use to serve the experiment to the web and to store the results on the server.
 
 - **Bottle** is the Python web framework for serving the experiment and storing the data.  Bottle was chosen because it is simple and easy to use.
 - **gevent** is our web server and handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed; it supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
@@ -65,7 +65,7 @@ The cloud hosting service bwCloud is available to members of universities in the
    - Copy the instance’s IP address from the list of instances (e.g., `193.196.54.221`).
    - Open a terminal and enter this command `ssh root@193.196.54.221` but with the actual IP address of your instance.  In this command, `root` is the default username used in DigitalOcean servers.  When using a bwCloud server, replace `root` with `ubuntu`.
    - SSH will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
-   - If all goes well, SSH will connect to the virtual server and show its command prompt, for instance, `root@test_instance:~$` on bwCloud or `root@test_instance:~$` on DigitalOcean.
+   - If all goes well, SSH will connect to the virtual server and show its command prompt, for instance, `root@test_instance:~$` on DigitalOcean or `ubuntu@test_instance:~$` on bwCloud.
 2. Install packages needed to run the experiment: `sudo apt update && sudo apt install make python3-bottle python3-gevent`
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
@@ -100,12 +100,12 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 2. Select “Instances” in the menu on the left.
 3. From the “Actions” menu in the line of your virtual server instance, select “Shelve Instance”.  A snapshot of the instance will be saved and the computing resources will be released so that others can use them.  The instance will now be listed with status “Shelved Offloaded”.  After shelving the instance, you can no longer access it, so make sure that you retrieve the data before shelving.  If necessary, it is possible to reactivate (“unshelve”) the instance later.
 
-## Compiling all individual participant’s results into one file
+## Compiling all individual result files into one file
 
 1. Enter the directory `data`.
 2. Execute this command: `Rscript compile_results.R`
 
-This will create a new file `combined.tsv` with an additional column called `participant_id` that contains the file name of the participant’s results file.
+This will create a new file `combined.tsv` with an additional column called `participant_id`.  This column contains the file name of each participant’s individual results file.
 
 ## Technical comments for advanced users
 
