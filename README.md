@@ -3,7 +3,11 @@
 
 A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org/), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).
 
-## Architecture
+## License terms
+
+This guide, the sample experiment (`experiment.html`), the script for serving the experiment online (`server.py`), and the `Makefile` are shared under the CC BY 4.0 license.  If you use these materials as the basis for your own research, please also acknowledge this repository in academic publications.
+
+## Overview
 
 The experiment is implemented using **jsPsych** which is one of the standard packages for implementing web experiments.  (An alternative package that also looks promising is [lab.js](https://lab.js.org/).)
 
@@ -22,7 +26,23 @@ The example experiment implements a minimal [Stroop task](https://en.wikipedia.o
 
 Below are instructions showing how to install and run the experiment.  You’ll need a virtual server running Ubuntu Linux.  Follow the instruction for either [bwCloud](https://www.bw-cloud.org), a cloud service offered by the state of Baden-Württemberg in Germany (free, but not always functional), or [DigitalOcean](https://www.digitalocean.com), a US-based commercial cloud service provider.
 
-## Create a bwCloud virtual server
+## Create a virtual server (a “Droplet”) on DigitalOcean (alternative 1)
+
+1. Visit https://www.digitalocean.com and create an account.
+2. Log in and visit the management interface at: https://cloud.digitalocean.com/projects
+3. In the menu pane on the left select “Droplets”.
+4. Click blue button “Create Droplet”.
+5. Configure Droplet:
+   - Choose geographic region where the Droplet should be hosted (“Frankfurt”).
+   - As operating system choose Ubuntu (latest version).
+   - Select “Size” of Droplet.  “Shared CPU / Basic” plan is usually enough.
+   - Under CPU options, choose “Regular”.  Scroll the horizontal list of available plans all the way to the left and choose the cheapest plan (USD 4, at the time of writing).
+   - In the section “Choose Authentication Method”, you can choose “SSH Key” or “Password”.  The former is more secure and more convenient once it’s set up.  The latter is potentially insecure (depending on the password) but slightly easier to set up.  The “SSH Key” method is strongly recommended.  On Linux, the file containing your key can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.  No idea where it would be on Windows, but DigitalOcean show some instructions for all operating systems when you click on the button “New SSH Key”.
+   - The options that they offer in the next section are typically not needed.
+   - In the section “Finalize Details” you can choose how many Droplets you want to create (usually 1) and given each a name.
+   - Finally click the button “Create Droplet” at the bottom right.
+
+## Create a bwCloud virtual server (alternative 2)
 
 The cloud hosting service bwCloud is available to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have access, try DigitalOcean (next section).  You can also use any other server running Ubuntu or any of its derivatives.
 
@@ -42,22 +62,6 @@ The cloud hosting service bwCloud is available to members of universities in the
       - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
       - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
-
-## Create a “Droplet” on DigitalOcean (commercial service)
-
-1. Visit https://www.digitalocean.com and create an account.
-2. Log in and visit the management interface at: https://cloud.digitalocean.com/projects
-3. In the menu pane on the left select “Droplets”.
-4. Click blue button “Create Droplet”.
-5. Configure Droplet:
-   - Choose geographic region where the Droplet should be hosted (“Frankfurt”).
-   - As operating system choose Ubuntu (latest version).
-   - Select “Size” of Droplet.  “Shared CPU / Basic” plan is usually enough.
-   - Under CPU options, choose “Regular”.  Scroll the horizontal list of available plans all the way to the left and choose the cheapest plan (USD 4, at the time of writing).
-   - In the section “Choose Authentication Method”, you can choose “SSH Key” or “Password”.  The former is more secure and more convenient once it’s set up.  The latter is potentially insecure (depending on the password) but slightly easier to set up.  The “SSH Key” method is strongly recommended.  On Linux, the file containing your key can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.  No idea where it would be on Windows, but DigitalOcean show some instructions for all operating systems when you click on the button “New SSH Key”.
-   - The options that they offer in the next section are typically not needed.
-   - In the section “Finalize Details” you can choose how many Droplets you want to create (usually 1) and given each a name.
-   - Finally click the button “Create Droplet” at the bottom right.
 
 ## Install required software on the virtual server
 
