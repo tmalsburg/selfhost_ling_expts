@@ -1,7 +1,7 @@
 
 ## What is this?
 
-A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).
+A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).  Includes a little demo experiment for illustration.
 
 ## Terms of use
 
