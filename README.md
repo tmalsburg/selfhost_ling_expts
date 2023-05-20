@@ -3,9 +3,9 @@
 
 A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).
 
-## License terms
+## Terms of use
 
-This guide, the sample experiment (`experiment.html`), the script for serving the experiment online (`server.py`), and the `Makefile` are shared under the CC BY 4.0 license.  If you use these materials as the basis for your own research, please acknowledge this repository in academic publications.
+Use this guide and software at your own risk.  This guide, the script for serving the experiment online (`server.py`), and the `Makefile` are shared under the CC BY 4.0 license.  If you base for your own research on these materials, please acknowledge it.
 
 ## Overview
 
