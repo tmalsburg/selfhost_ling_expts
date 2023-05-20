@@ -125,3 +125,6 @@ For testing, use (which blocks the shell):
 make test
 ```
 
+## Acknowledgements
+
+Judith Tonhauser provided comments and suggestions that helped improve the materials.
