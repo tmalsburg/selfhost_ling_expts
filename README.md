@@ -103,7 +103,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 ## Compiling all individual result files into one file
 
 1. Enter the directory `data`.
-2. Execute this command: `Rscript compile_results.R`
+2. Execute this command: `Rscript combine_results.R`
 
 This will create a new file `combined.tsv` with an additional column called `participant_id`.  This column contains the file name of each participant’s individual results file.
 
