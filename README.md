@@ -97,7 +97,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 1. Enter the directory containing the experiment: `cd experiment`
 2. To start the web server enter: `make start`
 3. You can now access the experiment in the browser at an URL like `http://193.196.55.166/` but using the IP address of your virtual server instance.
-4. After you worked through the experiment, you will find a new file in the subdirectory `experiment/data` named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.  This file contains the results of your test run.
+4. After you worked through the experiment, you will find a new file in the subdirectory `experiment/data` named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.  This file contains the results of your test run.  The name of the file is a so-called [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) which is (for all practical purposes) globally unique.
 
 ## Stop the experiment
 
@@ -111,7 +111,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 This will create a new file `combined.tsv` with two additional columns:
 
-- `participant_id`: This column contains the file name of each participant’s individual results file.
+- `participant_id`: This column contains the file name of each participant’s individual results file.  Since the file name is a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), this ID is practically guaranteed to be unique.  However, if someone participates multiple times in the same experiment, they’ll get multiple IDs, so there is not necessarily a 1-to-1 mapping of these IDs to actual people.
 - `ctime`: contains the individual results file’s creation time.
 
 The individual results will appear in chronological order in `combined.tsv`.
