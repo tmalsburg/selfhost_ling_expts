@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Demo of bottle + gevent
+# Demo of bottle + gevent.
 # Based on https://bottlepy.org/docs/dev/async.html
 
 import os
@@ -9,7 +9,7 @@ import uuid
 from gevent import monkey; monkey.patch_all()
 from bottle import route, request, run, static_file, HTTPError
 
-# These serve the experiment:
+# The following functions serve the experiment:
 
 @route('/')
 def experiment():
@@ -23,9 +23,10 @@ def send_image(filename):
 def jspsych(filename):
     return static_file(filename, root='jspsych/')
 
-# This stores the collected data in data/ with a random file name:
+# The function below stores the collected data in directory `data`
+# with a random filename following the pattern `results_XYZ.csv`.
 
-# Accept no more than max_data in POST requests:
+# Accept no more than max_data bytes in POST requests:
 max_data = 1024 * 5000
 
 @route('/store', method="POST")
@@ -40,8 +41,8 @@ def store():
             raise RuntimeError("A file named 'data' exists where a directory with that name is expected.")
     else:
         os.mkdir("data")
-    filename = str(uuid.uuid4()) + ".csv"
-    with open("data/" + "results_" + filename, "x") as f:
+    filename = f"data/results_{uuid.uuid4()}.csv"
+    with open(filename, "x") as f:
         f.write(filedata)
 
 run(host='0.0.0.0', port=80, server='gevent')
