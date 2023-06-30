@@ -3,14 +3,16 @@
 # Demo of bottle + gevent.
 # Based on https://bottlepy.org/docs/dev/async.html
 
-import os
-import uuid
+import os, sys, uuid
 
 from gevent import monkey; monkey.patch_all()
 from bottle import route, request, run, static_file, HTTPError
 
-# The following functions serve the experiment:
+# The following functions serve the parts of the experiment:
 
+# The @route part specified the path in the URL used in the browser.
+# The subsequent functions locates and loads the data from the hard
+# drive.
 @route('/')
 def experiment():
     return static_file("experiment.html", root='')
@@ -45,4 +47,13 @@ def store():
     with open(filename, "x") as f:
         f.write(filedata)
 
-run(host='0.0.0.0', port=80, server='gevent')
+try:
+    run(host='0.0.0.0', port=80, server='gevent')
+except OSError as err:
+    if err.args[0] == 98:
+        print("ERROR: The IP address is already in use.  End other process and try again.  Quitting.")
+    else:
+        print(err)
+    os.remove("nohup.pid")
+    sys.exit(-1)
+

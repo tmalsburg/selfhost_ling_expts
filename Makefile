@@ -1,4 +1,6 @@
 
+.PHONY=start stop test
+
 start: nohup.pid
 
 nohup.pid:
