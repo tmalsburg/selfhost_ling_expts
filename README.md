@@ -111,16 +111,16 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 This will create a new file `combined.tsv` with two additional columns:
 
-- `participant_id`: This column contains the file name of each participant’s individual results file.  Since the file name is a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), this ID is practically guaranteed to be unique.  However, if someone participates multiple times in the same experiment, they’ll get multiple IDs, so there is not necessarily a 1-to-1 mapping of these IDs to actual people.
+- `participant_id`: This column contains the file name of each participant’s individual results file.  Since the file name is a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), this ID is practically guaranteed to be unique.  However, if someone participates multiple times in the same experiment, they’ll get multiple IDs, so there is not necessarily a 1-to-1 mapping between these IDs and actual people.
 - `ctime`: contains the individual results file’s creation time.
 
 The individual results will appear in chronological order in `combined.tsv`.
 
-**Note:** The script uses the time when the files were created on disk.  For these times to be accurate, the script must run on the machine where the experiment is running.  If you transfer the files to another computer with (e.g. using `scp`), the times will no longer reflect the original creation time, but the time at which the files were copied.  So the suggestion workflow is: First combine all results into one file.  Then transfer that file to wherever you’d like to further process it.
+**Note:** For `ctime`, the script uses the time when the file was created on disk.  For this time to be accurate, the script must be run on the machine where the experiment was conducted.  If you transfer the files to another computer with (e.g., using `scp`), the times will no longer reflect the original creation time, but the time at which the files were copied.  So the suggested workflow is: First combine all results into one file.  Then transfer that file to wherever you’d like to process the data further.
 
 ## Technical comments for advanced users
 
-The PID of the server process will be stored in `nohup.pid` and the log messages in `nohup.out`.
+The PID (process id) of the server process will be stored in `nohup.pid` and log messages, including errors, in `nohup.out`.
 
 For testing, use (which blocks the shell):
 ``` sh :eval no
