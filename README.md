@@ -44,7 +44,7 @@ Below are instructions showing how to install and run the experiment.  You’ll 
 
 ## Create a bwCloud virtual server (alternative 2)
 
-The cloud hosting service bwCloud is available to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have access, try DigitalOcean (next section).  You can also use any other server running Ubuntu or any of its derivatives.
+The cloud hosting service bwCloud is available to members of universities in the state of Baden-Württemberg, Germany.  If you don’t have access, try DigitalOcean (previous section).  You can also use any other server running Ubuntu or any of its derivatives.
 
 1. Visit [bwCloud](https://portal.bw-cloud.org/project/instances/) and log in with your university’s username/password.
 2. Select “Instances” in the menu on the left.
