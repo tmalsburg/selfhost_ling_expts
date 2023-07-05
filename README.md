@@ -76,7 +76,7 @@ The cloud hosting service bwCloud is available to members of universities in the
    - Open a terminal and enter this command `ssh root@193.196.54.221` but with the actual IP address of your instance.  In this command, `root` is the default username used in DigitalOcean servers.  When using a bwCloud server, replace `root` with `ubuntu`.
    - SSH will warn you that the “authenticity of host XYZ can’t be established”.  That’s normal when you connect the first time.  Answer “yes” when asked whether you’d like to continue.
    - If all goes well, SSH will connect to the virtual server and show its command prompt, for instance, `root@test_instance:~$` on DigitalOcean or `ubuntu@test_instance:~$` on bwCloud.
-2. Install packages needed to run the experiment: `sudo apt update && sudo apt install make python3-bottle python3-gevent`
+2. Install required software packages: `sudo apt update && sudo apt install make python3-bottle python3-gevent r-cran-dplyr`
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
 
@@ -107,7 +107,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 ## Compiling all individual result files into one file
 
 1. Enter the directory `data`.
-2. Execute this command: `Rscript combine_results.R`
+2. Then execute: `Rscript combine_results.R`
 
 This will create a new file `combined.tsv` with two additional columns:
 
