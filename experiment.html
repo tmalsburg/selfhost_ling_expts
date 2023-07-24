@@ -12,17 +12,17 @@
   <script>
 
     /* Send data data to store script: */
-    function saveData(data){
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/store');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(data);
-        // xhr.send(JSON.stringify({filedata: data}));
+    async function saveData(data){
+        const response = await fetch('/store', {
+            method: "POST",
+            cache: "no-cache",
+            headers: {"Content-Type": "text/csv"},
+            body: data})
+        document.getElementById("jspsych-content").innerHTML = await response.text();
     }
 
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
-        // on_finish: function(){ jsPsych.data.displayData(); }
         on_finish: function(){
             saveData(jsPsych.data.get().csv());
         }

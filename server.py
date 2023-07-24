@@ -46,6 +46,7 @@ def store():
     filename = f"data/results_{uuid.uuid4()}.csv"
     with open(filename, "x") as f:
         f.write(filedata)
+    return "Your data has been recorded.  You may now close the browser window."
 
 try:
     run(host='0.0.0.0', port=80, server='gevent')
