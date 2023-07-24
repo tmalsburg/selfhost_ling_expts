@@ -37,20 +37,23 @@ max_data = 1024 * 5000
 def store():
     b = request.body
     filedata = b.read(max_data).decode()
+
     # If we can read more, they payload was too large:
     if len(b.read(1)) != 0:
-        raise HTTPError(413, 'Too much data.  Please contact the person conducting the experiment.')
+        raise HTTPError(413, "Too much data.  Please contact the person conducting the experiment.")
     if os.path.exists("data"):
         if not os.path.isdir("data"):
-            raise RuntimeError("A file named 'data' exists where a directory with that name is expected.")
+            raise HTTPError(500, "A file named 'data' exists where a directory with that name is expected.  Please contact the person conducting the experiment.")
     else:
         os.mkdir("data")
+
     filename = f"data/results_{uuid.uuid4()}.csv"
     try:
-      with open(filename, "x") as f:
-          f.write(filedata)
+        with open(filename, "w") as f:
+            f.write(filedata)
     except Exception as e:
-        raise HTTPError(500, 'Could not store data.  Please contact the person conducting the experiment.')
+        logging.error(str(e))
+        raise HTTPError(500, "Could not store data.  Please contact the person conducting the experiment.")
     else:
         logging.info(" Wrote file " + filename)
     return "Your data has been recorded.  You may now close the browser window."
