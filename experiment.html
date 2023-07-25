@@ -13,11 +13,12 @@
 
     /* Send data data to store script: */
     async function saveData(data){
-        const response = await fetch('/store', {
-            method: "POST",
-            cache: "no-cache",
+        const response = fetch('/store', {
+            method:  "POST",
+            cache:   "no-cache",
             headers: {"Content-Type": "text/csv"},
-            body: data})
+            body:    data
+        })
         document.getElementById("jspsych-content").innerHTML = await response.text();
     }
 
