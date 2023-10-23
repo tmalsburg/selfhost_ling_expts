@@ -1,5 +1,5 @@
 
-.PHONY=start stop test
+.PHONY=start stop stopsilent test
 
 PYTHON3=$(shell readlink -f `which python3`)
 
