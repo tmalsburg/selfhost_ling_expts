@@ -3,15 +3,21 @@
 
 PYTHON3=$(shell readlink -f `which python3`)
 
-start: nohup.pid
+.SILENT:
 
-nohup.pid:
+start: stopsilent nohup.pid
+
+nohup.pid: .SILENT
 	sudo setcap CAP_NET_BIND_SERVICE=+eip $(PYTHON3)
-	nohup python3 server.py & echo $$! > $@;
+	nohup $(PYTHON3) server.py & echo $$! > $@;
+	echo "Experiment started."
 
-stop: nohup.pid
-	kill `cat $<` && rm $<
+stopsilent:
+	test -f nohup.pid && kill `cat nohup.pid` && rm nohup.pid || true
+
+stop:
+	test -f nohup.pid && kill `cat nohup.pid` && rm nohup.pid && echo "Experiment stopped." || echo "No experiment running."
 
 test:
 	sudo setcap CAP_NET_BIND_SERVICE=+eip $(PYTHON3)
-	python3 server.py
+	$(PYTHON3) server.py
