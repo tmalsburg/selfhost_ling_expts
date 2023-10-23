@@ -62,7 +62,7 @@ try:
     run(host='0.0.0.0', port=80, server='gevent')
 except OSError as err:
     if err.args[0] == 98:
-        print("ERROR: The IP address is already in use.  End other process and try again.  Quitting.", file=sys.stderr)
+        print("ERROR: The IP address is already in use.  Another experiment may already be running.  End other process and try again.", file=sys.stderr)
     else:
         print(err, file=sys.stderr)
     os.remove("nohup.pid")
