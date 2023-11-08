@@ -13,19 +13,20 @@
 
     /* Send data data to store script: */
     async function saveData(data){
-        const response = fetch('/store', {
+        const response = await fetch('/store', {
             method:  "POST",
             cache:   "no-cache",
             headers: {"Content-Type": "text/csv"},
             body:    data
         })
+        // await new Promise(r => setTimeout(r, 4000));
         document.getElementById("jspsych-content").innerHTML = await response.text();
     }
 
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
-        on_finish: function(){
-            saveData(jsPsych.data.get().csv());
+        on_finish: async function(){
+            await saveData(jsPsych.data.get().csv());
         }
     });
 
