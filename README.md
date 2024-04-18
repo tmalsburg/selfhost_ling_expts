@@ -59,7 +59,7 @@ The cloud hosting service bwCloud is available to members of universities in the
       - Click on “Import Key Pair”.
       - Enter a name for the key under “Key Pair Name”.
       - Select “SSH Key” under “Key Type”.
-      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/.ssh/.id_rsa.pub`.  On MacOS it’s probably in the same location.
+      - Select the file containing your public key under “Load Public Key from a file”.  On Linux, this file can be found at: `~/.ssh/id_rsa.pub`.  On MacOS it’s probably in the same location.
       - Click “Import Key Pair” at the bottom left.
    - Click “Launch Instance”.  The new instance will then appear in the list of instances.
 
