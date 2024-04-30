@@ -19,9 +19,9 @@ from bottle import route, request, run, static_file, HTTPError
 def experiment():
     return static_file("experiment.html", root='')
 
-@route('<filename:re:.+\.png>')
-def send_image(filename):
-    return static_file(filename, root='.', mimetype='image/png')
+@route('/<filename:re:.+\.(js|tsv|png)>')
+def send_assets(filename):
+    return static_file(filename, root=os.getcwd())
 
 # The function below stores the collected data in directory `data`
 # with a random filename following the pattern `results_XYZ.csv`.
