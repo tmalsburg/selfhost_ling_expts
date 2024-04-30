@@ -55,7 +55,12 @@ def store():
     return "Your data has been recorded.</br>You may now close the browser window."
 
 try:
-    run(host='0.0.0.0', port=80, server='gevent')
+    if os.path.exists("cert.pem") and os.path.exists("key.pem"):
+      print("Starting encrypted server on port 433 ...")
+      run(host='0.0.0.0', port=443, server='gevent', certfile='cert.pem', keyfile='key.pem')
+    else:
+      print("Starting unencrypted server on port 80 ...")
+      run(host='0.0.0.0', port=80, server='gevent')
 except OSError as err:
     if err.args[0] == 98:
         print("ERROR: The IP address is already in use.  Another experiment may already be running.  End other process and try again.", file=sys.stderr)
