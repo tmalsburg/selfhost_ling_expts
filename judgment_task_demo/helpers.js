@@ -1,4 +1,6 @@
 
+// Functions for loading and parsing stimuli in .tsv format:
+
 function fetchURLContentSync(url) {
     var request = new XMLHttpRequest();
     request.open('GET', url, false);  // Set the third parameter to false for a synchronous request
@@ -26,6 +28,8 @@ function loadStimuli(url) {
   const tsv = fetchURLContentSync(url);
   return parseTSV(tsv);
 }
+
+// Functions for preparing Latin square design:
 
 function checkLatinSquare(target_sentences) {
 
@@ -99,6 +103,8 @@ function randomLatinSquareList(target_sentences) {
   return lists[randomKey];
 }
 
+// Functions for defining the experiment:
+
 // Factory function for comprehensibility judgements with a 5-point
 // Likert scale:
 function likertPage(s) {
@@ -110,6 +116,8 @@ function likertPage(s) {
     }]
   }
 }
+
+// Function for storing the results on the server:
 
 /* Send data data to store script: */
 async function saveData(data){
