@@ -7,24 +7,36 @@ A guide explaining how to set up a self-hosted web experiment using [jsPsych](ht
 
 Use this guide and software at your own risk.  This guide, the script for serving the experiment online (`server.py`), and the `Makefile` are shared under the CC BY 4.0 license.  If you base for your own research on these materials, please acknowledge it.
 
+## Short instructions
+
+(Detailed version below.)
+
+To run the demo experiments:
+
+1. Copy this repository to the server on which you’d like to run the experiment.
+2. Install required software: `sudo apt install make python3-bottle python3-gevent`
+3. In a command shell, enter the directory of the experiment that you’d like to test.
+4. Execute `make start`.  The experiment will now be served at the IP address of the server, either on port 80 (unencrypted) or on port 443 (encrypted) if the experiment directory contains a TLS certificate (`cert.pem`) and a TLS key (`key.pem`).
+5. Point your web browser to the address of the server to test.
+6. Execute `make stop` to shut down the web server.
+7. Collected data can be found in the subdirectory `data`.
+
 ## Overview
 
-Our sample experiment is implemented using [jsPsych](https://www.jspsych.org) which is one of the standard packages for implementing web experiments.  An alternative package that also looks promising is [lab.js](https://lab.js.org/).
+The sample experiments are implemented using [jsPsych](https://www.jspsych.org) which is one of the standard packages for implementing web-based experiments.  An alternative package that also looks promising is [lab.js](https://lab.js.org/).
 
 [Bottle](https://bottlepy.org/docs/dev/) and [gevent](https://pypi.org/project/gevent/) are Python packages that we use to serve the experiment to the web and to store the results on the server.
 
 - [Bottle](https://bottlepy.org/docs/dev/) is the Python web framework used for serving the experiment and storing the collected data.  Bottle was chosen because it is easy to use and well-documented.
 - [gevent](https://pypi.org/project/gevent/) is our web server and handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed.  I supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
 
-The example experiment implements a minimal [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect) and consists of the following components:
+The script `server.py` serves the experiment and stores the results in the subdirectory `data`.
 
-- `server.py`: The script that serves the experiment and stores the results in the subdirectory `data`.
-- `experiment.html`: The experiment, implemented with HTML and jsPsych.
-- `img`: Directory containing the images shown in the experiment.
-- `jsPsych`: Directory containing the jsPsych package.
-- `Makefile`: Recipe for starting and stopping the experiment.
+There are two sample experiments:
+- `demo_stroop_task`: A simple [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect) and consists of the following components.
+- `demo_judgment_task`: A simple experiment that asks participants to rate English sentences for comprehensibility on a 5-point Likert scale.
 
-Below are instructions showing how to install and run the experiment.  You’ll need a virtual server running Ubuntu Linux.  Follow the instruction for either [DigitalOcean](https://www.digitalocean.com), a commercial cloud service provider, or for [bwCloud](https://www.bw-cloud.org), a cloud service offered by the state of Baden-Württemberg.  bwCloud is only relevant for people working at universities in Baden-Württemberg.  Note that it’s sometimes not possible to create new servers on bwCloud due to resource constraints.
+Below are detailed instructions showing how to install and run the experiments.  You’ll need a virtual server running Ubuntu Linux (or similar).  Follow the instruction for either [DigitalOcean](https://www.digitalocean.com), a commercial cloud service provider, or for [bwCloud](https://www.bw-cloud.org), a cloud service offered by the state of Baden-Württemberg.  bwCloud is only an option for people working at universities in Baden-Württemberg.
 
 ## Create a virtual server (a “Droplet”) on DigitalOcean (alternative 1)
 
@@ -80,28 +92,28 @@ The cloud hosting service bwCloud is available to members of universities in the
 
 Done. You can now terminate the connection to the server by entering `exit`.  This will bring you back to the command prompt of your computer.
 
-## Install the experiment on the virtual server
+## Install the demo experiments on the virtual server
 
 1. Connect to the virtual server: `ssh root@193.196.54.221`
-2. To copy the template experiment to the virtual server, simply clone its git repository: `git clone git@github.com:tmalsburg/web_stroop_task.git experiment`
-3. Enter `ls experiment` to see all files in the new directory `experiment`.  You should see:
+2. To copy the demo experiments to the virtual server, simply clone its git repository: `git clone git@github.com:tmalsburg/web_stroop_task.git`
+3. Enter `ls web_stroop_task` to see all files.  You should see:
    - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
    - `README.md`: the file you’re currently reading
-   - `experiment.html`: the file containing the experiment
    - `server.py`: the script for serving the experiment and storing results on disk
-   - `images`: the directory containing images used in the experiment
-   - `jspsych`: the directory containing the jsPsych package
+   - `demo_stroop_task`: directory containing the simple stroop task
+   - `demo_judgment_task`: directory containing the simple judgment task
 
-## Run and test the experiment
+## Run and test the stroop task
 
-1. Enter the directory containing the experiment: `cd experiment`
+1. Enter the directory containing the experiment: `cd web_stroop_task/demo_stroop_task`
 2. To start the web server enter: `make start`
-3. You can now access the experiment in the browser at an URL like `http://193.196.55.166/` but using the IP address of your virtual server instance.
-4. After you worked through the experiment, you will find a new file in the subdirectory `experiment/data` named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.  This file contains the results of your test run.  The name of the file is a so-called [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) which is (for all practical purposes) globally unique.
+3. The server will use encrypted connections (`https://…`) if the directory contains a certificate and key (`cert.pem` and `key.pem`).  This will avoid messages show in some browser saying that the connection cannot be trusted.
+4. You can now access the experiment in the browser at an URL like `http://193.196.54.221/` (unencrypted) or `https://193.196.54.221/` (encrypted) but using the IP address of your virtual server instance.
+5. After you worked through the experiment, you will find a new file in the subdirectory `data` named something like `1244af49-9db5-410f-92bb-e4ecef23fc61.csv`.  This file contains the results of your test run.  The name of the file is a so-called [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) which is (for all practical purposes) globally unique.
 
 ## Stop the experiment
 
-1. Enter the directory containing the experiment: `cd experiment`
+1. Enter the directory containing the experiment: `cd web_stroop_task/demo_stroop_task`
 2. To stop the server enter: `make stop`
 
 ## Compiling all individual result files into one file

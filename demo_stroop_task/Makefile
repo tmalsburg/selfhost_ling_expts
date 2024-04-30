@@ -9,7 +9,7 @@ start: stopsilent nohup.pid
 
 nohup.pid: .SILENT
 	sudo setcap CAP_NET_BIND_SERVICE=+eip $(PYTHON3)
-	nohup $(PYTHON3) server.py & echo $$! > $@;
+	nohup $(PYTHON3) ../server.py & echo $$! > $@;
 	echo "Experiment started."
 
 stopsilent:
@@ -20,4 +20,4 @@ stop:
 
 test:
 	sudo setcap CAP_NET_BIND_SERVICE=+eip $(PYTHON3)
-	$(PYTHON3) server.py
+	$(PYTHON3) ../server.py
