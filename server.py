@@ -52,7 +52,7 @@ def store():
         raise HTTPError(500, "Could not store data.  Please contact the person conducting the experiment.")
     else:
         logging.info(" Wrote file " + filename)
-    return "Your data has been recorded.  You may now close the browser window."
+    return "Your data has been recorded.</br>You may now close the browser window."
 
 try:
     run(host='0.0.0.0', port=80, server='gevent')
