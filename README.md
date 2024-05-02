@@ -114,4 +114,4 @@ make test
 
 ## Acknowledgements
 
-Judith Tonhauser provided useful comments and suggestions.
+Thanks go to Judith Tonhauser, who provided useful comments and suggestions and helped test the software in this repository.
