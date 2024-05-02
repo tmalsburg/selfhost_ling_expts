@@ -1,7 +1,7 @@
 
 ## What is this?
 
-A guide explaining how to set up a self-hosted web experiment using [jsPsych](https://www.jspsych.org), [bottle](https://bottlepy.org/docs/dev/), and [gevent](https://pypi.org/project/gevent/).  Includes a little demo experiment for illustration.
+In this document, I explain how to set up  and host browser-based experiments.  This approach uses [jsPsych](https://www.jspsych.org) for designing the experiment and a simple but effective Python-script to serve it on the web.  This repository also includes demo experiments that are used as case studies.  These demos can also be used as templates for your own experiments.
 
 ## Terms of use
 
