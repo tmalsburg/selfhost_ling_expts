@@ -24,6 +24,7 @@ jsPsych.randomization.shuffle(stimuli);
 
 let pages = [];
 
+// Welcome screen:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
@@ -37,6 +38,7 @@ pages.push({
 <p style='width: 700px;'>If you consent, press space bar to proceed.</p>
 `});
 
+// Brief survey on English exposure:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
@@ -76,6 +78,7 @@ pages.push({
   ],
 });
 
+// Ask native language:
 pages.push({
   type: jsPsychSurveyHtmlForm,
   preamble: '<p>What is your native language?</br>If you have multiple, please separate them with commas.</p>',
@@ -83,6 +86,7 @@ pages.push({
   autofocus: 'test-resp-box'
 });
 
+// Ask other languages:
 pages.push({
   type: jsPsychSurveyHtmlForm,
   preamble: '<p>What other languages do you speak?</br>If multiple, please separate them with commas.</p>',
@@ -90,6 +94,7 @@ pages.push({
   autofocus: 'test-resp-box'
 });
 
+// Instructions for judgment task:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
@@ -102,10 +107,12 @@ then press the "Continue" button to proceed.</p>
 <p style='width: 700px;'>Press space bar to proceed.</p>
 `});
 
+// Experimental trials:
 for ([i,c,s,q] of stimuli) {
   pages.push(likertPage(s))
 }
 
+// Thank-you screen:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
@@ -115,6 +122,6 @@ pages.push({
 <p style='width: 700px;'>Press space bar to send us the results.</p>
 `});
 
+// Run experiment:
 jsPsych.run(pages);
 
-// (setq js-indent-level 2)
