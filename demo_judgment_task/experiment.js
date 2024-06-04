@@ -17,7 +17,7 @@ const target_sentences = loadStimuli("target_sentences.tsv")
 // Compose list:
 
 let stimuli = randomLatinSquareList(target_sentences);
-jsPsych.randomization.shuffle(stimuli);
+stimuli = jsPsych.randomization.shuffle(stimuli);
 
 // Structure of experiment:
 
