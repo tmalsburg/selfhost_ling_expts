@@ -15,6 +15,7 @@ To run the experiment execute `make start`.  For detailed instructions see [here
 Structure:
 - `experiment.html` is boring: it only loads the experiment.
 - `experiment.js`: This is where the experiment is defined.
+- `style.css`: Customization of jsPsych appearance.
 - `helpers.js`: Some helper functions for loading stimuli from `.tsv`, creating the Latin square, and for sending the results back to the server.
 - `target_sentences.tsv`: Is where the stimuli are stored.
 

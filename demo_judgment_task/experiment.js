@@ -16,8 +16,7 @@ const target_sentences = loadStimuli("target_sentences.tsv")
 
 // Compose list:
 
-let stimuli = [];
-stimuli = stimuli.concat(randomLatinSquareList(target_sentences));
+let stimuli = randomLatinSquareList(target_sentences);
 jsPsych.randomization.shuffle(stimuli);
 
 // Structure of experiment:
@@ -29,23 +28,29 @@ pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
   stimulus: `
-<p style='width: 700px;'>Welcome to this survey.</p>
+<center><b>Welcome to this survey.</b></center>
 
-<p style='width: 700px;'>This study is conducted by STUDENT X as part of a student project at the Institute of Linguistics of the University of Stuttgart.  All data data is collected anonymously and for research purposes.  You may only participate if you are 18 years of age or older.  For questions or comments, please contact us at address@e-mail.com.</p>
+<p>This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart.  The study's purpose is to advance our understanding of human language.</p>
 
-<p style='width: 700px;'>Note that this survey is designed for laptops and desktop computers. It will therefore require a keyboard.</p>
+<ul>
+  <li><b>Anonymity:</b> All data is collected anonymously and strictly for academic research purposes.  We are committed to maintaining your privacy. </li>
+  <li><b>Eligibility:</b> Participation is open to individuals who are 18 years of age or older. </li>
+  <li><b>Compatibility:</b> This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard. </li>
+  <li><b>Inquiries:</b> Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com.  We value your feedback and are here to assist. </li>
+</ul>
 
-<p style='width: 700px;'>If you consent, press space bar to proceed.</p>
-`});
+<p><b>Consent:</b>
+If you agree to participate under these conditions, please press space bar to proceed.
+</p>`});
 
 // Brief survey on English exposure:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
   stimulus: `
-<p style='width: 700px;'>Before we start, some quick questions about your language background.</p>
+<p>Before we start, some quick questions about your language background.</p>
 
-<p style='width: 700px;'>Press space bar to proceed.</p>
+<p>Press space bar to proceed.</p>
 `});
 
 pages.push({
@@ -99,12 +104,12 @@ pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
   stimulus: `
-<p style='width: 700px;'><b>Instructions:</b> You will see a number of
+<p><b>Instructions:</b> You will see a number of
 sentences, one at a time, and rate on a 5-point scale how easy or
 difficult each sentence is to comprehend.  Indicate your choice and
 then press the "Continue" button to proceed.</p>
 
-<p style='width: 700px;'>Press space bar to proceed.</p>
+<p>Press space bar to proceed.</p>
 `});
 
 // Experimental trials:
@@ -117,11 +122,12 @@ pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
   stimulus: `
-<p style='width: 700px;'>You're done.  Thank you!</p>
+<p>You're done.  Thank you!</p>
 
-<p style='width: 700px;'>Press space bar to send us the results.</p>
+<p>Press space bar to send us the results.</p>
 `});
 
 // Run experiment:
 jsPsych.run(pages);
 
+// (setq js-indent-level 2)
