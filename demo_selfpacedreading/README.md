@@ -1,7 +1,7 @@
 
-## A simple experiment demonstrating a judgment task in jsPsych
+## A simple experiment demonstrating a self-paced reading task in jsPsych
 
-This experiment loosely replicates [Gibson & Thomas (1999)](http://dx.doi.org/10.1080/016909699386293) which investigated the missing-verb illusion: Main finding is that double-center embedded sentences in which the middle VP is missing are judged as comprehensible (or rather incomprehensible) as the analogous grammatical sentences.
+This experiment conceptually replicates [Gibson & Thomas (1999)](http://dx.doi.org/10.1080/016909699386293) which investigated the missing-verb illusion: Main finding is that double-center embedded sentences in which the middle VP is missing are judged as comprehensible (or rather incomprehensible) as the analogous grammatical sentences.  Gibson and Thomas used a rating task, but here we use centered self-paced reading which makes the task almost impossibly difficult.
 
 Example:
 

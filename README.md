@@ -68,8 +68,8 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 ## Install the demo experiments on the virtual server
 
 1. Connect to the virtual server: `ssh root@193.196.54.221`
-2. To copy the demo experiments to the virtual server, simply clone its git repository: `git clone git@github.com:tmalsburg/web_stroop_task.git`
-3. Enter `ls web_stroop_task` to see all files.  You should see:
+2. To copy the demo experiments to the virtual server, simply clone its git repository: `git clone git@github.com:tmalsburg/selfhost_ling_expts.git`
+3. Enter `ls selfhost_ling_expts` to see all files.  You should see:
    - `Makefile`: a file for starting and stopping the HTTP server that serves the experiment over the web
    - `README.md`: the file you’re currently reading
    - `server.py`: the script for serving the experiment and storing results on disk
@@ -78,7 +78,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 ## Run and test the stroop task
 
-1. Enter the directory containing the experiment: `cd web_stroop_task/demo_stroop_task`
+1. Enter the directory containing the experiment: `cd selfhost_ling_expts/demo_stroop_task`
 2. To start the web server enter: `make start`
 3. The server will use encrypted connections (`https://…`) if the directory contains a certificate and key (`cert.pem` and `key.pem`).  This will avoid messages show in some browser saying that the connection cannot be trusted.
 4. You can now access the experiment in the browser at an URL like `http://193.196.54.221/` (unencrypted) or `https://193.196.54.221/` (encrypted) but using the IP address of your virtual server instance.
@@ -86,7 +86,7 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 ## Stop the experiment
 
-1. Enter the directory containing the experiment: `cd web_stroop_task/demo_stroop_task`
+1. Enter the directory containing the experiment: `cd selfhost_ling_expts/demo_stroop_task`
 2. To stop the server enter: `make stop`
 
 ## Compiling all individual result files into one file
