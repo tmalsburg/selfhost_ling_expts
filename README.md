@@ -1,7 +1,7 @@
 
 ## What is this?
 
-In this document, I explain how to set up  and host browser-based experiments.  This approach uses [jsPsych](https://www.jspsych.org) for designing the experiment and a simple but effective Python-script to serve it on the web.  This repository also includes demo experiments that are used as case studies.  These demos can also be used as templates for your own experiments.
+In this document, I explain how to set up  and host browser-based experiments.  This approach uses [jsPsych](https://www.jspsych.org) for designing the experiment and a simple but effective Python-script to serve it on the web.  This repository also includes demo experiments showing how standard (psycho)linguistic paradigms can be implemented.  Feel free to use these demos as templates for your own experiments.
 
 ## Terms of use
 
@@ -9,10 +9,12 @@ Use this guide and software at your own risk.  This guide, the script for servin
 
 ## Short instructions
 
-(Detailed version below.)
+Currently, the following demo experiments are available:
+- [A super basic Stroop task, good starting point](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_stroop_task)
+- [An acceptability judgment task](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_judgment_task)
+- [An experiment using the self-paced reading paradigm](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_selfpacedreading)
 
-To run the demo experiments:
-
+To run the demo experiments (detailed instructions and explanations below):
 1. Copy this repository to the server on which you’d like to run the experiment.
 2. Install required software: `sudo apt install make python3-bottle python3-gevent`
 3. In a command shell, enter the directory of the experiment that you’d like to test.
@@ -20,6 +22,7 @@ To run the demo experiments:
 5. Point your web browser to the address of the server to test.
 6. Execute `make stop` to shut down the web server.
 7. Collected data can be found in the subdirectory `data`.
+
 
 ## Overview
 
@@ -31,10 +34,6 @@ The sample experiments are implemented using [jsPsych](https://www.jspsych.org) 
 - [gevent](https://pypi.org/project/gevent/) is our web server and handles network connections.  Gevent, too, is easy to use but at the same time it scales really well if needed.  I supports asynchronous processing and can simultaneously serve hundreds or even thousands of users.
 
 The script `server.py` serves the experiment and stores the results in the subdirectory `data`.
-
-There are two sample experiments:
-- `demo_stroop_task`: A simple [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect).
-- `demo_judgment_task`: An experiment that asks participants to rate English sentences for comprehensibility on a 5-point Likert scale.
 
 Below are detailed instructions showing how to install and run the experiments.  You’ll need a virtual server running Ubuntu Linux (or similar).  Follow the instructions below for [DigitalOcean](https://www.digitalocean.com), a commercial cloud service provider.  People working at a University in Baden-Württemberg may try [bwCloud](bwCloud.md), a cloud service offered by the state.
 
