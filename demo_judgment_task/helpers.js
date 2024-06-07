@@ -103,18 +103,10 @@ function randomLatinSquareList(target_sentences) {
   return lists[randomKey];
 }
 
-// Functions for defining the experiment:
-
-// Factory function for comprehensibility judgements with a 5-point
-// Likert scale:
-function likertPage(s) {
-  return {
-    type: jsPsychSurveyLikert,
-    questions: [{
-      prompt: s,
-      labels: ["Easy", "Somewhat easy", "Neutral", "Somewhat hard", "Hard"],
-    }]
-  }
+// Markdown to HTML converter (third-party package showdown):
+function md(markdown) {
+  var converter = new showdown.Converter();
+  return converter.makeHtml(markdown);
 }
 
 // Function for storing the results on the server:

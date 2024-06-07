@@ -27,31 +27,25 @@ let pages = [];
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<center><b>Welcome to this survey.</b></center>
+  stimulus: md(`**Welcome to this survey.**
 
-<p>This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart.  The study's purpose is to advance our understanding of human language.</p>
+This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart. The study's purpose is to advance our understanding of human language.
 
-<ul>
-  <li><b>Anonymity:</b> All data is collected anonymously and strictly for academic research purposes.  We are committed to maintaining your privacy. </li>
-  <li><b>Eligibility:</b> Participation is open to individuals who are 18 years of age or older. </li>
-  <li><b>Compatibility:</b> This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard. </li>
-  <li><b>Inquiries:</b> Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com.  We value your feedback and are here to assist. </li>
-</ul>
+- **Anonymity:** All data is collected anonymously and strictly for academic research purposes. We are committed to maintaining your privacy.
+- **Eligibility:** Participation is open to individuals who are 18 years of age or older.
+- **Compatibility:** This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard.
+- **Inquiries:** Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com. We value your feedback and are here to assist.
 
-<p><b>Consent:</b>
-If you agree to participate under these conditions, please press space bar to proceed.
-</p>`});
+**Consent:** If you agree to participate under these conditions, please press the space bar to proceed.
+`)});
 
 // Brief survey on English exposure:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<p>Before we start, some quick questions about your language background.</p>
+  stimulus: md(`Before we start, some quick questions about your language background.
 
-<p>Press space bar to proceed.</p>
-`});
+Press space bar to proceed.`)});
 
 pages.push({
   type: jsPsychSurveyMultiChoice,
@@ -83,49 +77,37 @@ pages.push({
   ],
 });
 
-// Ask native language:
+// Ask native languages:
 pages.push({
-  type: jsPsychSurveyHtmlForm,
-  preamble: '<p>What is your native language?</br>If you have multiple, please separate them with commas.</p>',
-  html: '<input type="text" id="test-resp-box" name="response" size="20"/>',
-  autofocus: 'test-resp-box'
-});
-
-// Ask other languages:
-pages.push({
-  type: jsPsychSurveyHtmlForm,
-  preamble: '<p>What other languages do you speak?</br>If multiple, please separate them with commas.</p>',
-  html: '<input type="text" id="test-resp-box" name="response" size="20"/>',
-  autofocus: 'test-resp-box'
+  type: jsPsychSurveyText,
+  questions: [{prompt: "What are your native languages?", name: "native", required: true},
+              {prompt: "What other languages do you speak?", name: "otherlang"}],
 });
 
 // Instructions for judgment task:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<p><b>Instructions:</b> You will see a number of
-sentences, one at a time, and rate on a 5-point scale how easy or
-difficult each sentence is to comprehend.  Indicate your choice and
-then press the "Continue" button to proceed.</p>
+  stimulus: md(`**Instructions:** You will see a number of sentences, one at a time, and rate on a 5-point scale how easy or difficult each sentence is to comprehend.  Indicate your choice and then press the "Continue" button to proceed.
 
-<p>Press space bar to proceed.</p>
-`});
+Press space bar to proceed.`)});
 
 // Experimental trials:
 for ([i,c,s,q] of stimuli) {
-  pages.push(likertPage(s))
+  pages.push({
+    type: jsPsychSurveyLikert,
+    questions: [{
+      prompt: s,
+      labels: ["Easy", "Somewhat easy", "Neutral", "Somewhat hard", "Hard"]}]})
 }
 
 // Thank-you screen:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<p>You're done.  Thank you!</p>
+  stimulus: md(`You're done.  Thank you!
 
-<p>Press space bar to send us the results.</p>
-`});
+Press space bar to send us the results.`)});
 
 // Run experiment:
 jsPsych.run(pages);
