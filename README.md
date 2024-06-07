@@ -7,7 +7,7 @@ In this document, I explain how to set up  and host browser-based experiments.  
 
 Use this guide and software at your own risk.  This guide, the script for serving the experiment online (`server.py`), and the `Makefile` are shared under the CC BY 4.0 license.  If you base for your own research on these materials, please acknowledge it.
 
-## Short instructions
+## Short instructions (for Linux, macOS)
 
 Currently, the following demo experiments are available:
 - [A super basic Stroop task, good starting point](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_stroop_task)
@@ -18,11 +18,12 @@ To run the demo experiments (detailed instructions and explanations below):
 1. Copy this repository to the server on which you’d like to run the experiment.
 2. Install required software: `sudo apt install make python3-bottle python3-gevent`
 3. In a command shell, enter the directory of the experiment that you’d like to test.
-4. Execute `make start`.  The experiment will now be served at the IP address of the server, either on port 80 (unencrypted) or on port 443 (encrypted) if the experiment directory contains a TLS certificate (`cert.pem`) and a TLS key (`key.pem`).
-5. Point your web browser to the address of the server to test.
-6. Execute `make stop` to shut down the web server.
+4. Execute `make test`.  The experiment will now be served at address displayed in the shell.
+5. Point your web browser to that address to test.
+6. To stop the web server, press Ctrl-C in the shell.
 7. Collected data can be found in the subdirectory `data`.
 
+The instructions above are for testing.  For production use, see detailed instructions below.
 
 ## Overview
 
@@ -102,15 +103,18 @@ The individual results will appear in chronological order in `combined.tsv`.
 
 **Note:** For `ctime`, the script uses the time when the file was created on disk.  For this time to be accurate, the script must be run on the machine where the experiment was conducted.  If you transfer the files to another computer with (e.g., using `scp`), the times will no longer reflect the original creation time, but the time at which the files were copied.  So the suggested workflow is: First combine all results into one file.  Then transfer that file to wherever you’d like to process the data further.
 
-## Technical comments for advanced users
-
-The PID (process id) of the server process will be stored in `nohup.pid` and log messages, including errors, in `nohup.out`.
+## Testing an experiment
 
 For testing, use (which blocks the shell):
 ``` sh :eval no
 make test
 ```
+To stop the server, press Ctrl-C in the shell.
+
+## Technical details
+
+When starting the server with `make start`, the process id (PID) of the server will be stored in `nohup.pid` and log messages, including errors, in `nohup.out`.
 
 ## Acknowledgements
 
-Thanks go to Judith Tonhauser, who provided useful comments and suggestions and helped test the software in this repository.
+Thanks go to Judith Tonhauser, who provided useful comments and suggestions and helped test some of the software in this repository.
