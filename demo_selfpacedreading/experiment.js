@@ -27,37 +27,28 @@ let pages = [];
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<center><b>Welcome to this survey.</b></center>
+  stimulus: md(`**Welcome to this survey.**
 
-<p>This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart.  The study's purpose is to advance our understanding of human language.</p>
+This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart. The study's purpose is to advance our understanding of human language.
 
-<ul>
-  <li><b>Anonymity:</b> All data is collected anonymously and strictly for academic research purposes.  We are committed to maintaining your privacy. </li>
-  <li><b>Eligibility:</b> Participation is open to individuals who are 18 years of age or older. </li>
-  <li><b>Compatibility:</b> This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard. </li>
-  <li><b>Inquiries:</b> Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com.  We value your feedback and are here to assist. </li>
-</ul>
+- **Anonymity:** All data is collected anonymously and strictly for academic research purposes. We are committed to maintaining your privacy.
+- **Eligibility:** Participation is open to individuals who are 18 years of age or older.
+- **Compatibility:** This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard.
+- **Inquiries:** Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com. We value your feedback and are here to assist.
 
-<p><b>Consent:</b>
-If you agree to participate under these conditions, please press space bar to proceed.
-</p>`});
+**Consent:** If you agree to participate under these conditions, please press the space bar to proceed.`)});
 
-// Instructions for judgment task:
+// Instructions for self-paced reading task:
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<p><b>Instructions:</b>
-<ul>
-<li>You will be presented with a text on your screen, one word at a time.</li>
-<li>To move to the next word, press space bar.</li>
-<li>After each sentence, you will be asked whether the sentence was comprehensible.  Some may not be.</li>
-<li>Try to maintain a steady reading pace that reflects your natural reading speed. Do not rush, but also try not to read significantly slower than you normally would.</li>
-</ul>
+  stimulus: md(`**Instructions:**
+You will be presented with a text on your screen, one word at a time.
+- To move to the next word, press space bar.
+- After each sentence, you will be asked whether the sentence was comprehensible.  Some may not be.
+- Try to maintain a steady reading pace that reflects your natural reading speed. Do not rush, but also try not to read significantly slower than you normally would.
 
-<p>Press space bar to proceed.</p>
-`});
+Press space bar to proceed.`)});
 
 // Experimental trials:
 for ([i,c,s,q] of stimuli) {
@@ -85,11 +76,9 @@ for ([i,c,s,q] of stimuli) {
 pages.push({
   type: jsPsychHtmlKeyboardResponse,
   choices: [" "],
-  stimulus: `
-<p>You're done.  Thank you!</p>
+  stimulus: md(`You're done.  Thank you!
 
-<p>Press space bar to send us the results.</p>
-`});
+Press space bar to send us the results.`)});
 
 // Run experiment:
 jsPsych.run(pages);
