@@ -1,0 +1,19 @@
+<p>Verify that you’re human:</p>
+<form action="?" method="POST">
+    <div id="g-recaptcha" data-callback="correctCaptcha">
+    </div>
+    <br />
+    <input type="submit" value="Proceed" id="proceed_button">
+</form>
+
+<script>
+  // Hide “proceed” button:
+  var submit = document.getElementById("proceed_button");
+  submit.style.display = "none";
+  // Un-hide when captcha is completed:
+  var correctCaptcha = function () {
+      submit.style.display = "block";
+  };
+  // Activate captcha:
+  grecaptcha.render('g-recaptcha', {'sitekey' : 'the-site-key-from-google'});
+</script>
