@@ -1,0 +1,27 @@
+
+<script>
+  var checkbox_changed = function(checkbox) {
+    if (checkbox.checked) {
+      document.getElementById("start_button").disabled = false;
+    } else {
+      document.getElementById("start_button").disabled = true;
+    }
+  }
+</script>
+
+<strong>Welcome to this experiment!</strong>
+
+<p>This experiment is conducted by XYZ as part of a project at the Institute of Linguistics of the University of Stuttgart. The study's purpose is to advance our understanding of human language.</p>
+
+<ul>
+  <li><strong>Anonymity:</strong> All data is collected anonymously and strictly for academic research purposes.</li>
+  <li><strong>Compatibility:</strong> This survey is optimized for laptops and desktop computers and requires a physical keyboard.</li>
+  <li><strong>Termination:</strong> You can end the experiment at any time.</li>
+  <li><strong>Inquiries:</strong> You can contact us at address@e-mail.com. We value your feedback and are happy to assist.</li>
+</ul>
+
+<p>
+  <input type="checkbox" id="consent_checkbox" onchange="checkbox_changed(this)"/>
+  I agree to take part in this study.</p>
+</p>
+<button type="button" id="start_button" disabled>Start Experiment</button>

@@ -23,20 +23,15 @@ stimuli = jsPsych.randomization.shuffle(stimuli);
 
 let pages = [];
 
-// Welcome screen:
+// Welcome and consent:
 pages.push({
-  type: jsPsychHtmlKeyboardResponse,
-  choices: [" "],
-  stimulus: md(`**Welcome to this survey.**
+  type: jsPsychExternalHtml,
+  url: "consent.html",
+  cont_btn: "start_button",
+  force_refresh: true,
+  execute_script: true,
+});
 
-This survey is conducted by STUDENT X as part of a project at the Institute of Linguistics of the University of Stuttgart. The study's purpose is to advance our understanding of human language.
-
-- **Anonymity:** All data is collected anonymously and strictly for academic research purposes. We are committed to maintaining your privacy.
-- **Eligibility:** Participation is open to individuals who are 18 years of age or older.
-- **Compatibility:** This survey is optimized for laptops and desktop computers and necessitates the use of a physical keyboard.
-- **Inquiries:** Should you have any questions or comments, do not hesitate to reach out to us via email at address@e-mail.com. We value your feedback and are here to assist.
-
-**Consent:** If you agree to participate under these conditions, please press the space bar to proceed.
 `)});
 
 // Brief survey on English exposure:

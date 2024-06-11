@@ -19,7 +19,7 @@ from bottle import route, request, run, static_file, HTTPError
 def experiment():
     return static_file("experiment.html", root='')
 
-@route('/<filename:re:.+\.(js|tsv|png|css)>')
+@route('/<filename:re:.+\.(js|tsv|png|css|html)>')
 def send_assets(filename):
     return static_file(filename, root=os.getcwd())
 
