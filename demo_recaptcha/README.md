@@ -8,4 +8,8 @@ Structure:
 
 Note, that the reCaptcha will only work when the experiment is served from the domain name indicated when registering the site key.
 
+Screen shot:
+
+![Screenshot showing reCaptcha in action](screenshot.png)
+
 The experiment is served with the script `server.py` described [here](https://github.com/tmalsburg/selfhost_ling_expts).
