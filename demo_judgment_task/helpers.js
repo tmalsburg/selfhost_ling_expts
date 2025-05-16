@@ -109,6 +109,21 @@ function md(markdown) {
   return converter.makeHtml(markdown);
 }
 
+// Functions for defining the experiment:
+
+// Factory function for comprehensibility judgements with a 5-point
+// Likert scale:
+function likertPage(s) {
+  return {
+    type: jsPsychSurveyLikert,
+    questions: [{
+      prompt: s,
+      labels: ["Easy", "Somewhat easy", "Neutral", "Somewhat hard", "Hard"],
+    }],
+    data: { stimulus: s }
+  }
+}
+
 // Function for storing the results on the server:
 
 /* Send data data to store script: */

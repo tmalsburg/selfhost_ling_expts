@@ -32,7 +32,7 @@ pages.push({
   execute_script: true,
 });
 
-`)});
+// `)});
 
 // Brief survey on English exposure:
 pages.push({
@@ -93,7 +93,9 @@ for ([i,c,s,q] of stimuli) {
     type: jsPsychSurveyLikert,
     questions: [{
       prompt: s,
-      labels: ["Easy", "Somewhat easy", "Neutral", "Somewhat hard", "Hard"]}]})
+      labels: ["Easy", "Somewhat easy", "Neutral", "Somewhat hard", "Hard"]}],
+    data: { stimulus: s }
+  })
 }
 
 // Thank-you screen:
