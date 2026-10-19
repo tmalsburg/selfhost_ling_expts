@@ -1,0 +1,10 @@
+# Participant data, created at runtime by server.py.  Never commit it.
+data/
+
+# Written by `make start`.
+nohup.pid
+nohup.out
+
+__pycache__/
+*.pyc
+.DS_Store
