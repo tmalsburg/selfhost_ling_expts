@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My experiment</title>
-    <script src="https://unpkg.com/jspsych@7.3.4"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.1.3"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.1"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form"></script>
-    <script src="https://unpkg.com/@jspsych-contrib/plugin-self-paced-reading@2.0.0"></script>
-    <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
-    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css"/>
+    <title>Sentence Processing Experiment</title>
+    <meta charset="UTF-8">
+    <!-- Always render light, whatever the participant's OS theme is set to. -->
+    <meta name="color-scheme" content="light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://unpkg.com/jspsych@8.2.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.1.0"></script>
+    <!-- The self-paced reading display (this folder). -->
+    <script src="plugin-dom-self-paced-reading.js"></script>
+    <script src="https://unpkg.com/showdown@2.1.0/dist/showdown.min.js"></script>
+    <link href="https://unpkg.com/jspsych@8.2.3/css/jspsych.css" rel="stylesheet" type="text/css"/>
     <link href="style.css" rel="stylesheet" type="text/css"/>
-    <script src="helpers.js"/></script>
-    <script src="experiment.js"/></script>
+    <script src="helpers.js"></script>
+    <script src="experiment.js"></script>
   </head>
   <body></body>
 </html>
