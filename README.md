@@ -12,8 +12,7 @@ Use this guide and software at your own risk.  This guide, the script for servin
 Currently, the following demo experiments are available:
 - [A super basic Stroop task, good starting point](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_stroop_task)
 - [An acceptability judgment task](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_judgment_task)
-- [An experiment using the self-paced reading paradigm](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_selfpacedreading)
-- [A self-paced reading experiment for computers and phones, with three presentation modes](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_dom_selfpacedreading)
+- [A self-paced reading experiment for computers and phones, with three presentation modes](https://github.com/tmalsburg/selfhost_ling_expts/tree/main/demo_selfpacedreading)
 
 To run the demo experiments (detailed instructions and explanations below):
 1. Copy this repository to the server on which you’d like to run the experiment.

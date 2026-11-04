@@ -1,7 +1,7 @@
 
 ## A self-paced reading experiment for computers and phones
 
-This experiment uses the same stimuli as [demo_selfpacedreading](../demo_selfpacedreading): a conceptual replication of [Gibson & Thomas (1999)](http://dx.doi.org/10.1080/016909699386293) on the missing-verb illusion.  It differs in how the sentences are shown and in what it records:
+This experiment uses the same stimuli as the earlier jsPsych version of this demo: a conceptual replication of [Gibson & Thomas (1999)](http://dx.doi.org/10.1080/016909699386293) on the missing-verb illusion.  It differs in how the sentences are shown and in what it records:
 
 - **The words are real text on the page**, rendered by a small custom jsPsych 8 plugin (`plugin-dom-self-paced-reading.js`) instead of being drawn on a canvas.  Long sentences wrap onto a second line like ordinary text.
 - **Three presentation modes**, all self-paced (the participant advances every word; nothing is on a timer):
@@ -77,7 +77,7 @@ The instructions and the on-screen key labels are generated from `KEY_YES`, `KEY
 | CorrectAnswer | no | `Yes`/`No` (also `y`/`n`, `1`/`0`, `true`/`false`, `ja`/`nein`); makes the question count towards accuracy |
 | Condition | no | A descriptive name for the variant (`garden-path`); recorded, not used for the Latin square |
 
-Without a header row the first five columns are read in this order, as in `demo_selfpacedreading`; Condition and any further columns need a header row.  With a header row the columns may be in any order, and names are matched without regard to case, spaces or underscores (`ItemID`, `item_id`, `Item ID`).  Further columns are copied into the results as `stim_<name>`, which is a convenient way to carry per-item variables such as norming ratings into the analysis.  The delimiter (tab or comma) is detected from the file's content, and quoted fields with commas inside are read correctly.
+Without a header row the first five columns are read in this order, as in the earlier jsPsych version; Condition and any further columns need a header row.  With a header row the columns may be in any order, and names are matched without regard to case, spaces or underscores (`ItemID`, `item_id`, `Item ID`).  Further columns are copied into the results as `stim_<name>`, which is a convenient way to carry per-item variables such as norming ratings into the analysis.  The delimiter (tab or comma) is detected from the file's content, and quoted fields with commas inside are read correctly.
 
 The number of lists follows the number of variants per item, so a design with 2, 3, 6 or 8 conditions needs no change to the code.  Conditions are balanced within each list when the number of items is a multiple of the number of conditions; the browser console warns otherwise.
 
