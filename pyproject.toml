@@ -1,0 +1,20 @@
+[project]
+name = "selfhost-ling-expts"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Mohammed Said", email = "mohamed.2000.b@hotmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "bottle>=0.13.4",
+    "gevent>=26.9.0",
+]
+
+[project.scripts]
+selfhost-ling-expts = "selfhost_ling_expts:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"

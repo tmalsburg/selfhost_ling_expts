@@ -13,7 +13,7 @@ This experiment uses the same stimuli as the earlier jsPsych version of this dem
 
 To run the experiment, install the required software (`sudo apt install make python3-bottle python3-gevent`), enter this directory and execute `make test` (foreground, stop with Ctrl-C) or `make start` / `make stop` (background).  Then open the address shown in the shell.  For detailed instructions see [here](https://github.com/tmalsburg/selfhost_ling_expts).
 
-**This directory has its own `server.py`**, started by its own `Makefile`, instead of the shared one at the top of the repository.  It appends all participants to one results file and hands out the Latin square lists in rotation; see "Results" below.  The other demos are not affected.
+The experiment is served by the shared `server.py` at the top of the repository, like the other demos.  It hands out the Latin square lists in rotation and stores the results as described under "Results" below.
 
 Structure:
 - `experiment.html` only loads the experiment.
@@ -22,7 +22,6 @@ Structure:
 - `style.css`: how everything looks: font, size, margins, underlines and the three presentation modes.  The font (Inter) is embedded at the end of the file, so the experiment needs no font files and contacts no font service.
 - `helpers.js`: loading the stimulus file, the Latin square, device detection and sending the results to the server.
 - `target_sentences.tsv`: the stimuli.
-- `server.py`: serves the experiment and stores the results in the subdirectory `data`.
 
 ### Computers, phones and tablets
 
@@ -66,7 +65,9 @@ The instructions and the on-screen key labels are generated from `KEY_YES`, `KEY
 
 ### Stimuli
 
-`target_sentences.tsv` (or `target_sentences.csv`) has three required columns, **ItemID**, **List** and **Sentence**, and three optional ones:
+The file names are set at the top of `experiment.js`: `STIMULUS_FILE` (default `"target_sentences"`) and `FILLER_FILE` (default `"fillers"`), without extension.  The experiment uses `<name>.tsv` or, if there is none, `<name>.csv`.  The delimiter (tab or comma) is detected from the file's content, and quoted fields with commas inside are read correctly.
+
+The columns are the same as in the judgment demo, so one stimulus file works in both.  Three are required, **ItemID**, **List** and **Sentence**, and three are optional:
 
 | Column | Required | Content |
 | :--- | :---: | :--- |
@@ -77,25 +78,65 @@ The instructions and the on-screen key labels are generated from `KEY_YES`, `KEY
 | CorrectAnswer | no | `Yes`/`No` (also `y`/`n`, `1`/`0`, `true`/`false`, `ja`/`nein`); makes the question count towards accuracy |
 | Condition | no | A descriptive name for the variant (`garden-path`); recorded, not used for the Latin square |
 
-Without a header row the first five columns are read in this order, as in the earlier jsPsych version; Condition and any further columns need a header row.  With a header row the columns may be in any order, and names are matched without regard to case, spaces or underscores (`ItemID`, `item_id`, `Item ID`).  Further columns are copied into the results as `stim_<name>`, which is a convenient way to carry per-item variables such as norming ratings into the analysis.  The delimiter (tab or comma) is detected from the file's content, and quoted fields with commas inside are read correctly.
+Without a header row the first five columns are read in this order (ItemID, List, Sentence, QuestionText, CorrectAnswer), as in the earlier jsPsych version; Condition and any further columns need a header row.  With a header row the columns may be in any order, and names are matched without regard to case, spaces or underscores (`ItemID`, `item_id`, `Item ID`; German and Arabic names are recognised too).  Further columns are copied into the results as `stim_<name>`, which is a convenient way to carry per-item variables such as norming ratings into the analysis.
 
-The number of lists follows the number of variants per item, so a design with 2, 3, 6 or 8 conditions needs no change to the code.  Conditions are balanced within each list when the number of items is a multiple of the number of conditions; the browser console warns otherwise.
+**Target sentences** (`target_sentences.tsv`), without a header row, tab-separated:
+
+```
+01	a	The ancient manuscript that the grad student who the new card catalog had confused a great deal was studying in the library was missing a page.	Was a page missing?	Yes
+01	b	The ancient manuscript that the grad student who the new card catalog was studying in the library was missing a page.	Was a page missing?	Yes
+```
+
+The same with a header row, comma-separated (`target_sentences.csv`), with the optional Condition column:
+
+```
+ItemID,List,Condition,Sentence,QuestionText,CorrectAnswer
+01,a,grammatical,The ancient manuscript that the grad student who the new card catalog had confused a great deal was studying in the library was missing a page.,Was a page missing?,Yes
+01,b,missing-VP1,The ancient manuscript that the grad student who the new card catalog was studying in the library was missing a page.,Was a page missing?,Yes
+```
+
+The number of lists follows the number of variants per item, so a design with 2, 3, 6 or 8 conditions needs no change to the code.  Every item needs every List label exactly once, and conditions are balanced within each list when the number of items is a multiple of the number of List labels; the browser console warns otherwise.
 
 **Regions:** words in curly braces are shown and timed as one unit: `the man who {I saw} left`.
 
-**Fillers** (optional) go in `fillers.tsv` or `fillers.csv`, in the same format.  Every participant sees every filler; fillers are not part of the Latin square and are mixed in with the targets.
+**Fillers** (optional) are not part of the Latin square: every participant sees every filler, mixed in with the targets, and fillers carry `list` 0 (and `list_label` 0) in the results.  They can go in either place, or both:
+
+- **The filler file** (`fillers.tsv` or `fillers.csv`).  It needs **no List column**: without a header row it is read as ItemID, Sentence, QuestionText, CorrectAnswer.  Filler IDs may be plain numbers (`1`, `2`, `3`, …), even the same numbers as target items; `list` 0 tells them apart.
+
+  ```
+  1	The children, tired after the trip, fell asleep in the car.	Were the children tired?	Yes
+  2	The letter that the secretary typed was sent the next morning.
+  ```
+
+  or with a header row:
+
+  ```
+  ItemID,Sentence,QuestionText,CorrectAnswer
+  1,"The children, tired after the trip, fell asleep in the car.",Were the children tired?,Yes
+  2,The letter that the secretary typed was sent the next morning.,,
+  ```
+
+- **The target file**, for a study that keeps targets and fillers together: give the filler rows **List `0`**.
+
+  ```
+  ItemID,List,Sentence,QuestionText,CorrectAnswer
+  01,a,The ancient manuscript that the grad student who the new card catalog had confused a great deal was studying in the library was missing a page.,Was a page missing?,Yes
+  1,0,"The children, tired after the trip, fell asleep in the car.",Were the children tired?,Yes
+  ```
+
+List `0` is therefore reserved for fillers and cannot be used as a Latin square label.  Filler files in the older layout with a List column (e.g. `F01	filler	…`) are still read correctly.  Fillers with a QuestionText and CorrectAnswer count towards comprehension accuracy like targets.
 
 ### Results
 
 All results are written to the subdirectory `data`:
 
-- `results.csv`: all participants, appended as each session ends, **one row per word** and one row per question.
+- `results_<uuid>.csv`: one file per participant, written when the session ends, **one row per word** and one row per question.
 - `survey.csv`: the questionnaire, one row per participant, linked to the results by `participant_id`.
-- `list_counter.txt`: the position in the list rotation.  Delete it to start again at list 1.
+- `list_counter.txt`: for each list, how many participants started it and how many completed it (sent their data); the difference is the dropouts.  It also holds the position in the list rotation.  Delete it to start again at list 1 with all counts at zero.
 
-`server.py` locks `results.csv` while appending, so participants who finish at the same moment cannot mix their rows, and it undoes a write that fails half-way.  If the columns of a submission differ from those already in the file (because the experiment was changed during data collection), that participant is written to a separate `results_<uuid>.csv` instead, and the server log says so.
+This is the same layout as on exphost.  Each participant's trials get a file of their own, so a failed or interrupted write can cost at most one participant's data, and a participant who withdraws is removed by deleting one file and their row in `survey.csv`.  To combine all participants into one file, with their survey answers added, run `Rscript R/combine_results.R demo_selfpacedreading/data` from the top of the repository; it writes `data/combined.csv`.  `server.py` locks `survey.csv` while appending, so participants who finish at the same moment cannot mix their rows; line breaks typed into the comments box stay inside the row.
 
-The lists are handed out in rotation (`/get_list`), so the number of participants per list stays balanced.  If the experiment is served by a server without this endpoint, for example the shared `server.py`, lists are chosen at random and the `list_assignment` column says `random_fallback`.
+The lists are handed out in rotation (`/get_list`), so the number of participants per list stays balanced.  If the experiment is served by a server without this endpoint, for example a plain static file server, lists are chosen at random and the `list_assignment` column says `random_fallback`.
 
 The most important columns:
 

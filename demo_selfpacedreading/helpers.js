@@ -182,9 +182,12 @@ function normalizeColumnName(name) {
  * "the first cell is not a number", because item IDs are allowed to be strings
  * (F01, item_3), so a non-numeric first cell is no longer evidence of a header.
  *
+ * A filler file needs no List column (`filler` = true): its header has to
+ * name only ItemID and Sentence.
+ *
  * Returns null when there is no header, in which case columns are positional.
  */
-function detectHeader(cells) {
+function detectHeader(cells, filler) {
   const found = {};
   cells.forEach((cell, i) => {
     const name = normalizeColumnName(cell);
@@ -196,10 +199,23 @@ function detectHeader(cells) {
     });
   });
 
-  if (found.item_id === undefined || found.list === undefined || found.sentence === undefined) {
+  if (found.item_id === undefined || found.sentence === undefined ||
+      (!filler && found.list === undefined)) {
     return null;
   }
   return found;
+}
+
+/**
+ * A filler file without a header row may still be in the older layout
+ * ItemID, List, Sentence, ... (with a label such as "filler" in every row).
+ * Its second column is then the same short word in every row, which a
+ * sentence column never is.
+ */
+function hasFillerListColumn(rows) {
+  return rows.length > 0 && rows.every(r =>
+    r.length >= 3 && r[1] === rows[0][1] && !/\s/.test(r[1]) && r[1].length <= 20 &&
+    String(r[2] === undefined ? '' : r[2]).trim() !== '');
 }
 
 /**
@@ -228,10 +244,18 @@ function parseDelimited(content, delimiter, opts) {
   const rows = parseDelimitedRows(content, delimiter);
   if (rows.length === 0) return [];
 
-  const header = opts.header === false ? null : detectHeader(rows[0]);
+  const filler = opts.filler === true;
+  const header = opts.header === false ? null : detectHeader(rows[0], filler);
   const body = header ? rows.slice(1) : rows;
-  const at = (cells, field, fallback_index) => {
-    const i = header ? header[field] : fallback_index;
+  // Without a header: ItemID, List, Sentence, QuestionText, CorrectAnswer --
+  // or, for a filler file, the same without List (unless the file still has
+  // one; see hasFillerListColumn()).
+  const positions = header ||
+    (filler && !hasFillerListColumn(body)
+      ? { item_id: 0, sentence: 1, question: 2, answer: 3 }
+      : { item_id: 0, list: 1, sentence: 2, question: 3, answer: 4 });
+  const at = (cells, field) => {
+    const i = positions[field];
     return (i === undefined || i < 0) ? undefined : cells[i];
   };
 
@@ -274,12 +298,13 @@ function parseDelimited(content, delimiter, opts) {
   const skipped = [];
   const out = [];
   body.forEach((cells, n) => {
-    const id = parseItemId(at(cells, 'item_id', 0));
-    const list_label = at(cells, 'list', 1);
-    const sentence = at(cells, 'sentence', 2);
+    const id = parseItemId(at(cells, 'item_id'));
+    // Every filler is List 0, whatever (if anything) its file says.
+    const list_label = filler ? '0' : at(cells, 'list');
+    const sentence = at(cells, 'sentence');
     // Optional and header-only: there is no positional slot for it, because
     // the five positional columns are the format this started with.
-    const condition = header ? at(cells, 'condition', -1) : undefined;
+    const condition = header ? at(cells, 'condition') : undefined;
 
     // A row is usable only with all three required fields.  Anything else is
     // reported rather than dropped in silence — a header that was not
@@ -293,8 +318,8 @@ function parseDelimited(content, delimiter, opts) {
       id,
       String(list_label).trim(),
       sentence,
-      at(cells, 'question', 3),
-      at(cells, 'answer', 4)
+      at(cells, 'question'),
+      at(cells, 'answer')
     ];
     // Attached rather than positional, for the same reason as row.extra: the
     // five-element shape is what every caller indexes into.
@@ -316,8 +341,9 @@ function parseDelimited(content, delimiter, opts) {
 
   if (skipped.length > 0) {
     console.warn(
-      `${label}: ${skipped.length} row(s) skipped — ItemID, List and ` +
-      `SentenceText are all required:\n` + skipped.join('\n')
+      `${label}: ${skipped.length} row(s) skipped — ` +
+      (filler ? `ItemID and Sentence are` : `ItemID, List and Sentence are all`) +
+      ` required:\n` + skipped.join('\n')
     );
   }
 
@@ -338,8 +364,10 @@ function parseDelimited(content, delimiter, opts) {
  * still reads correctly.
  *
  * Options: { optional: true } returns [] instead of throwing when no file is
- * found (used for fillers.*, which not every study has); { delimiter: "," }
- * overrides the sniffing; { header: false } forces positional columns.
+ * found (used for fillers.*, which not every study has); { filler: true }
+ * reads a filler file (no List column needed, every row gets List 0);
+ * { delimiter: "," } overrides the sniffing; { header: false } forces
+ * positional columns.
  *
  * Returns the parsed rows, with `.source` set to the filename actually used.
  */
@@ -368,7 +396,8 @@ function loadStimuli(url, opts) {
   const delimiter = opts.delimiter || sniffDelimiter(content);
   const parsed = parseDelimited(content, delimiter, {
     label: source,
-    header: opts.header
+    header: opts.header,
+    filler: opts.filler
   });
   console.info(
     `${source}: ${parsed.length} rows, ${delimiter === '\t' ? 'tab' : 'comma'}-separated.`

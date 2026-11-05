@@ -19,15 +19,24 @@
 // the same on both; the texts are not, and phones and tablets always read
 // one word at a time in the centre (mode 3).
 //
-// The sentences themselves are in target_sentences.tsv (and fillers.tsv),
-// the look (font, size, margins, colours) at the top of style.css.
+// The sentences themselves are in the stimulus files (STIMULUS_FILE and
+// FILLER_FILE below), the look (font, size, margins, colours) at the top of
+// style.css.
 // =========================================================================
 
 // ---- Settings ------------------------------------------------------------
 // The reasoning behind each setting is in README.md, "Settings".
 
+// Stimulus files, in this directory.  Give the name without extension: the
+// experiment uses name.tsv or, if there is none, name.csv, and detects tab-
+// or comma-separated from the content.  (A name with .tsv or .csv is used
+// exactly as given.)  The filler file is optional; without it there are no
+// fillers.
+const STIMULUS_FILE = "target_sentences";
+const FILLER_FILE = "fillers";
+
 // Reading
-const SPR_PRESENTATION_MODE = 2;  // 1 = moving window, 2 = cumulative,
+const SPR_PRESENTATION_MODE = 1;  // 1 = moving window, 2 = cumulative,
 // 3 = one word at a time in the centre.  Computers only: phones and tablets
 // always use mode 3.
 const ADVANCE_KEY = " ";          // key that shows the next word (" " = space bar)
@@ -330,19 +339,32 @@ function loadStimulusFiles() {
   // tries .tsv and .csv and uses whichever exists, and sniffs the
   // delimiter from the file itself, so a study can ship whatever format its
   // authors work in.
-  const target_sentences = loadStimuli("target_sentences");
-  if (!target_sentences || target_sentences.length === 0) {
-    throw new Error("Could not load target_sentences.(tsv|csv|txt) or it is empty.");
+  const all_rows = loadStimuli(STIMULUS_FILE);
+  if (!all_rows || all_rows.length === 0) {
+    throw new Error(`Could not load ${STIMULUS_FILE}(.tsv|.csv) or it is empty.`);
   }
 
-  // Fillers are optional: a study without a fillers.* file simply has none.
+  // Fillers are optional.  They come from either place, or both:
+  //   - the filler file (FILLER_FILE): no List column needed, and IDs may be
+  //     plain numbers (1, 2, 3, ...), even the same numbers as target items;
+  //   - rows with List 0 in the target file, for a study that keeps targets
+  //     and fillers in one file.
   //
   // They are NOT part of the Latin square.  Every participant sees every
   // filler, identical across lists — that is the point of a filler — so they
   // are excluded from latinSquareLists() and appended to whichever list the
-  // participant drew.  In the data they are marked by `list = 0`, meaning
-  // "belongs to no list"; target rows carry L1...Ln as before.
-  const fillers = loadStimuli("fillers", { optional: true });
+  // participant drew.  In the data they are marked by `list = 0` (and
+  // list_label 0), meaning "belongs to no list"; target rows carry L1...Ln.
+  // A filler and a target with the same ItemID are therefore told apart by
+  // `list`.
+  const target_sentences = all_rows.filter(row => row[1] !== "0");
+  target_sentences.extra_columns = all_rows.extra_columns;
+  if (target_sentences.length === 0) {
+    throw new Error(`${STIMULUS_FILE}: no target sentences (every row has List 0).`);
+  }
+  const filler_file = loadStimuli(FILLER_FILE, { optional: true, filler: true });
+  const fillers = [...all_rows.filter(row => row[1] === "0"), ...filler_file];
+  fillers.extra_columns = filler_file.extra_columns;
   // Identity, not a column: the rows keep the same five-element shape as the
   // targets, and a Set survives the shuffle below that mixes the two together.
   const filler_rows = new Set(fillers);
@@ -369,31 +391,7 @@ function loadStimulusFiles() {
     return out;
   };
   if (fillers.length > 0) {
-    console.info(`${fillers.length} filler sentences loaded; shown to every participant.`);
-    // `list = 0` is the only thing that separates a filler from a target in
-    // the output.  So a filler that reuses a target's ItemID or condition
-    // label merges into that item or condition in any analysis that groups
-    // without also filtering on `list` — silently, and numbering fillers
-    // 1..N is the obvious thing for someone to do.  Warn at load.
-    const target_ids = new Set(target_sentences.map(r => String(r[0])));
-    const target_lists = new Set(target_sentences.map(r => String(r[1])));
-    const id_clash = [...new Set(fillers.map(r => String(r[0])).filter(id => target_ids.has(id)))];
-    const cond_clash = [...new Set(fillers.map(r => String(r[1])).filter(c => target_lists.has(c)))];
-    if (id_clash.length > 0) {
-      console.warn(
-        `Filler ItemID(s) also used by target items: ${id_clash.join(', ')}. ` +
-        `Filler and target rows are told apart only by list = 0, so these ` +
-        `will group together unless the analysis filters on list. Give the ` +
-        `fillers distinct IDs (F01, F02, ...).`
-      );
-    }
-    if (cond_clash.length > 0) {
-      console.warn(
-        `Filler List label(s) also used by target items: ${cond_clash.join(', ')}. ` +
-        `Give the fillers a label of their own ("filler") so the two cannot ` +
-        `be pooled by list_label.`
-      );
-    }
+    console.info(`${fillers.length} filler sentences loaded (List 0); shown to every participant.`);
   }
 
   return { target_sentences, fillers, filler_rows, stimExtras };

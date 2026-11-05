@@ -91,17 +91,14 @@ Done. You can now terminate the connection to the server by entering `exit`.  Th
 
 ## Compiling all individual result files into one file
 
-1. Enter the directory `data`.
-2. Then execute: `Rscript combine_results.R`
+The server stores one `results_<uuid>.csv` per participant and, for experiments with a questionnaire, one shared `survey.csv` with one row per participant.  To combine them, run from the top of the repository, e.g.:
 
-This will create a new file `combined.tsv` with two additional columns:
+```
+Rscript R/combine_results.R demo_selfpacedreading/data
+Rscript R/combine_results.R demo_judgment_task/data
+```
 
-- `participant_id`: This column contains the file name of each participant’s individual results file.  Since the file name is a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier), this ID is practically guaranteed to be unique.  However, if someone participates multiple times in the same experiment, they’ll get multiple IDs, so there is not necessarily a 1-to-1 mapping between these IDs and actual people.
-- `ctime`: contains the individual results file’s creation time.
-
-The individual results will appear in chronological order in `combined.tsv`.
-
-**Note:** For `ctime`, the script uses the time when the file was created on disk.  For this time to be accurate, the script must be run on the machine where the experiment was conducted.  If you transfer the files to another computer with (e.g., using `scp`), the times will no longer reflect the original creation time, but the time at which the files were copied.  So the suggested workflow is: First combine all results into one file.  Then transfer that file to wherever you’d like to process the data further.
+This writes `combined.csv` into that data directory: all participants' rows stacked, with each participant's survey answers added to every one of their rows (matched by `participant_id`), and a column `source_file` naming the file each row came from.  Results files without a `participant_id` column (e.g. from the Stroop demo) get the random part of their file name as `participant_id`.  The script also prints the number of participants per Latin square list, and warns about files it could not read, participants without a survey row, and duplicate submissions.  It uses base R only, so nothing needs to be installed.  Rerun it whenever new data has come in; `combined.csv` is overwritten.
 
 ## Testing an experiment
 
